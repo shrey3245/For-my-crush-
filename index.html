@@ -14,7 +14,7 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
             text-align: center;
         }
 
@@ -32,61 +32,83 @@
         .heart {
             position: absolute;
             color: rgba(255, 255, 255, 0.6);
-            font-size: 20px;
+            font-size: 22px;
             animation: floatUp 5s linear infinite;
         }
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
             50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
         }
 
         .container {
             position: relative;
             z-index: 2;
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px 20px;
+            padding: 35px 25px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.25);
             max-width: 90%;
-            width: 380px;
+            width: 400px;
             backdrop-filter: blur(10px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
             color: #d63384;
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 15px;
         }
 
         .poetry-box {
             background: #fff0f3;
             border-left: 4px solid #ff4b5c;
-            padding: 12px;
+            padding: 15px;
             margin: 15px 0;
             border-radius: 8px;
             font-style: italic;
-            color: #555;
+            color: #444;
             font-size: 15px;
-            line-height: 1.5;
+            line-height: 1.6;
+            text-align: left;
         }
 
-        .buttons {
+        .btn-group {
             display: flex;
             justify-content: space-around;
+            margin-top: 25px;
             position: relative;
-            height: 60px;
-            margin-top: 20px;
+            height: 50px;
         }
 
         .btn {
-            padding: 12px 28px;
-            font-size: 16px;
+            padding: 10px 24px;
+            font-size: 15px;
             font-weight: bold;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             transition: 0.2s;
+        }
+
+        .next-btn {
+            background-color: #ff4b5c;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 75, 92, 0.4);
+            width: 100%;
         }
 
         #yesBtn {
@@ -102,18 +124,11 @@
             box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
         }
 
-        .hidden-message {
-            display: none;
-            margin-top: 20px;
+        .final-msg {
             font-size: 20px;
             color: #d63384;
             font-weight: bold;
-            animation: popIn 0.5s ease-in-out;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -122,27 +137,53 @@
     <!-- Background Floating Hearts -->
     <div class="heart-bg" id="heartBg"></div>
 
-    <div class="container" id="mainContainer">
-        <h1 id="questionText">Aapki aankhon mein kuch khaas baat hai... 🥺💖</h1>
+    <div class="container">
         
-        <div class="poetry-box">
-            "Sunkar tumhari baatein ek naya sukoon milta hai,<br>
-            Jaise khile hue phoolon mein dil ka gulab khilta hai.<br>
-            Batao na, kya tum humari poori zindagi banna chahogi?"
+        <!-- PAGE 1: Welcome Screen -->
+        <div class="page active" id="page1">
+            <h1>Hey Smriti ✨</h1>
+            <p style="color: #666; font-size: 15px; margin-bottom: 20px;">Maine tumhare liye kuch khaas banaya hai. Aage badho aur dekho! 🙈</p>
+            <button class="btn next-btn" onclick="nextPage(2)">Click Here 💖</button>
         </div>
 
-        <div class="buttons" id="btnGroup">
-            <button class="btn" id="yesBtn" onclick="sayYes()">Yes! 🥰</button>
-            <button class="btn" id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">No 😢</button>
+        <!-- PAGE 2: Shayari / Poetry Page 1 -->
+        <div class="page" id="page2">
+            <h1>Kuch Baatein Dil Ki... 💌</h1>
+            <div class="poetry-box">
+                <!-- Yahan apni pehli shayari daal lena -->
+                ".hgvgoohggfdhydifififuf..<br>
+               jffjfjhhhgfffgghhjjhgf ."
+            </div>
+            <button class="btn next-btn" onclick="nextPage(3)">Aage Chalo 👉</button>
         </div>
 
-        <div class="hidden-message" id="successMsg">
-            Yayyy! You just made me the happiest person alive! 🎉❤️✨
+        <!-- PAGE 3: Shayari / Poetry Page 2 -->
+        <div class="page" id="page3">
+            <h1>Aapka Ehsaas... 🌹</h1>
+            <div class="poetry-box">
+                <!-- Yahan apni dusri shayari daal lena -->
+                "Yahan aap apni dusri shayari ya lines daal sakte hain...<br>
+                Jo safar ko aur bhi khoobsurat bana de."
+            </div>
+            <button class="btn next-btn" onclick="nextPage(4)">Final Sawal 🥺</button>
         </div>
+
+        <!-- PAGE 4: Final Proposal & Running No Button -->
+        <div class="page" id="page4">
+            <h1 id="questionText">Batao na, kya tum humari poori zindagi banna chahogi? 💕</h1>
+            <div class="btn-group" id="btnGroup">
+                <button class="btn" id="yesBtn" onclick="sayYes()">Yes! 🥰</button>
+                <button class="btn" id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">No 😢</button>
+            </div>
+            <div class="final-msg" id="successMsg" style="display: none;">
+                Yayyy! You just made me the happiest person alive! 🎉❤️✨
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Create Floating Hearts Dynamically
+        // Floating Hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -150,14 +191,17 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.getElementById('heartBg').appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => heart.remove(), 5000);
         }
         setInterval(createHeart, 300);
 
-        // Move 'No' Button logic
+        // Page Navigation Logic
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+        }
+
+        // Running 'No' Button Logic
         function moveNo() {
             const noBtn = document.getElementById('noBtn');
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 80);
@@ -167,15 +211,13 @@
             noBtn.style.top = `${y}px`;
         }
 
-        // 'Yes' Click logic
+        // 'Yes' Click Logic
         function sayYes() {
             document.getElementById('questionText').style.display = 'none';
-            document.querySelector('.poetry-box').style.display = 'none';
             document.getElementById('btnGroup').style.display = 'none';
             document.getElementById('successMsg').style.display = 'block';
             document.body.style.background = 'linear-gradient(135deg, #ff0844, #ffb199)';
         }
     </script>
 </body>
-  </html>
-  
+</html>
