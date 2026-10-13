@@ -108,9 +108,10 @@
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             position: relative;
-            height: 45px;
+            height: 55px;
             margin-top: 10px;
         }
 
@@ -123,18 +124,18 @@
             cursor: pointer;
             background: white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.2s;
+            transition: 0.1s ease;
         }
 
         .btn-yes {
-            background-color: #ffffff;
-            color: #333;
+            background-color: #28a745;
+            color: white;
         }
 
         .btn-no {
-            background-color: #ffffff;
-            color: #333;
-            position: absolute;
+            background-color: #dc3545;
+            color: white;
+            position: relative;
         }
 
         .final-msg {
@@ -198,7 +199,7 @@
         
         <!-- STEP 5: Poetry Page (Aapki Shayari) -->
         <div class="step-box" id="step5">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Puppy">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1bWw3bXZubXR3bzZocGNxOGZtcWppZXFxbXB5MGIwaW52OHB5aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
             <h2>Arz Kiya Hai... 💌</h2>
             <div class="poetry-box">
                 Aap hi ke bina hoon kyun bechain?<br>
@@ -211,21 +212,21 @@
             </div>
         </div>
           
-        <!-- STEP 6: Do u love me 💖 -->
-        <div class="step-box" id="step4">
+        <!-- STEP 6: Do u really love me 💖✨-->
+        <div class="step-box" id="step6">
             <img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cute Hug">
             <h2>i missed u in my every single moment 😭😭</h2>
             <div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘</div>
             <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(5)">Yes</button>
-                <button class="btn btn-no" id="noBtn4" onmouseover="moveButton('noBtn4')" ontouchstart="moveButton('noBtn4')" onclick="nextStep(5)">No</button>
+                <button class="btn btn-yes" onclick="nextStep(7)">Yes</button>
+                <button class="btn btn-no" id="noBtn6" onmouseover="moveButton('noBtn6')" ontouchstart="moveButton('noBtn6')" onclick="nextStep(7)">No</button>
             </div>
         </div>
         
         <!-- STEP 7: Final Celebration Screen -->
-        <div class="step-box" id="step6">
+        <div class="step-box" id="step7">
             <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Happy Celebration">
-            <h2>Hehehehe, I knew it!u also Love me a lot 😘</h2>
+            <h2>Hehehehe, I knew it! u also Love me a lot 😘</h2>
             <div class="final-msg">Forever Yours ❤️✨</div>
         </div>
 
@@ -250,14 +251,15 @@
             document.getElementById('step' + stepNumber).classList.add('active');
         }
 
-        // Running 'No' Button Logic
+        // Fast & Smooth Running 'No' Button Logic
         function moveButton(btnId) {
             const btn = document.getElementById(btnId);
-            const x = (Math.random() - 0.5) * 180;
-            const y = (Math.random() - 0.5) * 100;
+            const x = (Math.random() - 0.5) * 220;
+            const y = (Math.random() - 0.5) * 150;
+            btn.style.position = 'absolute';
             btn.style.transform = `translate(${x}px, ${y}px)`;
         }
     </script>
 </body>
-                                          </html>
+            </html>
     
