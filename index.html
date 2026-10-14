@@ -6,6 +6,9 @@
 <meta name="theme-color" content="#190f25">
 <title>For Simmi 💖🐱</title>
 
+<!-- Confetti Library for Grand Celebration -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 *{box-sizing:border-box}
 body{
@@ -18,10 +21,23 @@ body{
 .heart-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .heart{position:absolute;bottom:-40px;animation:floatUp linear forwards}
 @keyframes floatUp{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}
+
+.floating-word {
+ position: absolute;
+ bottom: -30px;
+ color: rgba(255, 182, 193, 0.4);
+ font-size: 13px;
+ font-weight: bold;
+ animation: floatWord linear forwards;
+ pointer-events: none;
+}
+@keyframes floatWord{to{transform:translateY(-110vh) scale(1.2);opacity:0}}
+
 .container{
  position:relative;z-index:2;width:min(100%,430px);padding:27px 22px;
  border-radius:28px;background:linear-gradient(145deg,#fff8fc,#ffe5f0);
- box-shadow:0 20px 65px #0008;border:1px solid #ffffffa0
+ box-shadow:0 20px 65px #0008;border:1px solid #ffffffa0;
+ backdrop-filter: blur(10px);
 }
 .topline{color:#c04b7c;font-size:11px;font-weight:bold;letter-spacing:2px}
 .progress-wrap{height:5px;background:#f4cfdf;border-radius:10px;margin:18px 0 24px;overflow:hidden}
@@ -34,48 +50,49 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 .sub-text{font-size:14px;line-height:1.7;color:#806a7a;margin:0 auto 18px}
 .poetry-box{background:white;border-left:4px solid #ff5d91;border-radius:14px;padding:15px 10px;line-height:1.9;font-style:italic;margin:15px 0 20px}
 .btn-group{display:flex;justify-content:center;align-items:center;gap:12px;min-height:52px;margin-top:15px}
-.btn{border:0;border-radius:14px;padding:13px 24px;min-height:46px;font-size:14px;font-weight:bold;color:white;cursor:pointer;box-shadow:0 6px 16px #8d436333}
+.btn{border:0;border-radius:14px;padding:13px 24px;min-height:46px;font-size:14px;font-weight:bold;color:white;cursor:pointer;box-shadow:0 6px 16px #8d436333;transition: transform 0.1s;}
+.btn:active{transform: scale(0.95);}
 .btn-yes{background:linear-gradient(135deg,#31bd70,#18894e)}
 .btn-no{background:linear-gradient(135deg,#ff7188,#e83c62)}
 .btn-next{width:100%;background:linear-gradient(110deg,#ff7ba8,#e9367c)}
 .final-msg{font-size:22px;font-weight:800;color:#d63384;margin-top:14px}
 .tiny-heart{color:#ef4f8c;margin-top:20px;font-size:13px}
+
+/* Music Control Button */
+.music-btn {
+ position: fixed;
+ top: 15px;
+ right: 15px;
+ z-index: 100;
+ background: rgba(255, 255, 255, 0.2);
+ border: 1px solid rgba(255, 255, 255, 0.4);
+ color: white;
+ padding: 8px 12px;
+ border-radius: 20px;
+ font-size: 12px;
+ cursor: pointer;
+ backdrop-filter: blur(5px);
+}
+
 @media(max-width:380px){.container{padding:22px 16px}.gif-img{width:130px;height:130px}.btn{padding:12px 19px}}
- 
-.cat-art {
-  height: 148px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 48px;
-  margin: 0 auto 15px;
-  animation: catBounce 2s ease-in-out infinite;
-}
-.cat-art span:nth-child(2) {
-  font-size: 30px;
-  animation: heartBeat 1s infinite;
-}
-@keyframes catBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
-}
-@keyframes heartBeat {
-  50% { transform: scale(1.3); }
-            
 </style>
 </head>
 
 <body>
 <div class="heart-bg" id="heartBg"></div>
 
+<!-- Background Romantic Music (Soft Instrumental Audio) -->
+<audio id="bgMusic" loop>
+  <source src="https://ia800904.us.archive.org/31/items/romantic-piano-music/Romantic%20Piano.mp3" type="audio/mp3">
+</audio>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
+
 <main class="container">
 <p class="topline">A LITTLE SOMETHING FROM MY HEART 💌🐾</p>
 <div class="progress-wrap"><div class="progress" id="progress"></div></div>
 
 <section class="step-box active" id="step1">
-<img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" class="gif-img" alt="Cute romantic cat">
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute romantic cat">
 <h2>DO you love me? 🤭💗</h2>
 <div class="sub-text">~iam all yours✨❣️</div>
 <div class="btn-group">
@@ -85,7 +102,7 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 </section>
 
 <section class="step-box" id="step2">
-<img src="https://media.giphy.com/media/qFmdpUKAFZ6rMobzzu/giphy.gif" class="gif-img" alt="Cats in love">
+<img src="https://media.giphy.com/media/3ov9jLsBqPh6rjuHuM/giphy.gif" class="gif-img" alt="Cats in love">
 <h2>Please think again! 🙄💕</h2>
 <div class="sub-text">hamesha sath rhunga💃aise se aisa 👵hogao gi tbb v👀💞</div>
 <div class="btn-group">
@@ -95,7 +112,7 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 </section>
 
 <section class="step-box" id="step3">
-<img src="https://media.giphy.com/media/e1Tf1eOo6976zuGv3C/giphy.gif" class="gif-img" alt="Romantic cat couple">
+<img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" class="gif-img" alt="Romantic cat couple">
 <h2>Ek aur baar fhir Soch lo! 😣</h2>
 <div class="sub-text">psnd toh tumne v kiya hoga n kbhi 1 sec ke liye v ｡⁠◕⁠‿⁠◕⁠｡💗</div>
 <div class="btn-group">
@@ -105,7 +122,7 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 </section>
 
 <section class="step-box" id="step4">
-<img src="https://media1.tenor.com/m/CgGf-l5pQWcAAAAC/cat-heart-eyes-yoonmilkers.gif" class="gif-img" alt="Cat with heart eyes">
+<img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cat with heart eyes">
 <h2>Simmi Man jao na! Kitna bhav khaogi 😭💗</h2>
 <div class="sub-text">bhut mehnat lga isko bnane m yaar🌚🐱</div>
 <div class="btn-group">
@@ -115,7 +132,7 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 </section>
 
 <section class="step-box" id="step5">
-<img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" class="gif-img" alt="Cute cat">
+<img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute cat">
 <h2>Arz Kiya Hai... 💌</h2>
 <div class="poetry-box">
 Aap hi ke bina hoon kyun bechain?<br>
@@ -129,7 +146,7 @@ Waakai aap khoobsurat hain ❤️
 </section>
 
 <section class="step-box" id="step6">
-<img src="https://media.giphy.com/media/qFmdpUKAFZ6rMobzzu/giphy.gif" class="gif-img" alt="Cats cuddling">
+<img src="https://media.giphy.com/media/ikoWnO3p731Q2sN/giphy.gif" class="gif-img" alt="Cats cuddling">
 <h2>i missed u in my every single moment 😭😭</h2>
 <div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘💞</div>
 <div class="btn-group">
@@ -139,17 +156,17 @@ Waakai aap khoobsurat hain ❤️
 </section>
 
 <section class="step-box" id="step7">
-<img src="https://media.giphy.com/media/e1Tf1eOo6976zuGv3C/giphy.gif" class="gif-img" alt="Cute cat couple">
+<img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" class="gif-img" alt="Cute cat couple">
 <h2>Do you really love me? 🥺💖</h2>
 <div class="sub-text">Sach sach batana padega ab toh! 😉🐾</div>
 <div class="btn-group" id="finalButtons">
-<button class="btn btn-yes" onclick="nextStep(8)">Yes! 🥰</button>
+<button class="btn btn-yes" onclick="triggerCelebration()">Yes! 🥰</button>
 <button class="btn btn-no" id="noBtn7" type="button">No 😢</button>
 </div>
 </section>
 
 <section class="step-box" id="step8">
-<img src="https://media1.tenor.com/m/CgGf-l5pQWcAAAAC/cat-heart-eyes-yoonmilkers.gif" class="gif-img" alt="Happy romantic cat">
+<img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Happy romantic cat">
 <h2>Hehehehe, I knew it! u also Love me a lot 😘💗</h2>
 <div class="final-msg">Forever Yours ❤️✨</div>
 <div class="sub-text">Meow meow… only you, Simmi 🐱💕</div>
@@ -160,10 +177,9 @@ Waakai aap khoobsurat hain ❤️
 
 <script>
 const heartBg=document.getElementById('heartBg');
-const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Floating Hearts & Words Generator
 function createHeart(){
- if(reducedMotion||heartBg.childElementCount>20)return;
  const heart=document.createElement('span');
  heart.className='heart';
  heart.textContent=['💖','💕','🐾','💗','😽'][Math.floor(Math.random()*5)];
@@ -173,7 +189,33 @@ function createHeart(){
  heartBg.appendChild(heart);
  heart.addEventListener('animationend',()=>heart.remove(),{once:true});
 }
-if(!reducedMotion){createHeart();setInterval(createHeart,500)}
+setInterval(createHeart, 500);
+
+function createWord(){
+ const word=document.createElement('span');
+ word.className='floating-word';
+ word.textContent=['Cutie 🐱','Forever 💖','My World ✨','Simmi 💕'][Math.floor(Math.random()*4)];
+ word.style.left=Math.random()*90+'vw';
+ word.style.animationDuration=(7+Math.random()*4)+'s';
+ heartBg.appendChild(word);
+ word.addEventListener('animationend',()=>word.remove(),{once:true});
+}
+setInterval(createWord, 2000);
+
+// Music Toggle Logic
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isPlaying = false;
+function toggleMusic(){
+ if(isPlaying){
+  music.pause();
+  musicBtn.textContent = '🎵 Play Music';
+ }else{
+  music.play();
+  musicBtn.textContent = '🔇 Pause Music';
+ }
+ isPlaying = !isPlaying;
+}
 
 function nextStep(n){
  document.querySelectorAll('.step-box').forEach(s=>s.classList.remove('active'));
@@ -182,15 +224,31 @@ function nextStep(n){
  if(n===7)resetNoButton();
 }
 
+// Grand Confetti Celebration Function
+function triggerCelebration(){
+ nextStep(8);
+ 
+ // Confetti burst
+ confetti({
+  particleCount: 120,
+  spread: 70,
+  origin: { y: 0.6 },
+  colors: ['#ff4b5c', '#ff7baf', '#ffffff', '#ff1493']
+ });
+ 
+ // Extra side cannons for grand look
+ setTimeout(() => {
+  confetti({ particleCount: 80, angle: 60, origin: { x: 0 } });
+  confetti({ particleCount: 80, angle: 120, origin: { x: 1 } });
+ }, 300);
+}
+
 const noBtn7=document.getElementById('noBtn7');
 const finalButtons=document.getElementById('finalButtons');
 
 function moveButton(){
- const area=finalButtons.getBoundingClientRect();
- const button=noBtn7.getBoundingClientRect();
- const maxX=Math.max(0,(area.width-button.width)/2-3);
- const x=(Math.random()*2-1)*maxX;
- const y=(Math.random()*2-1)*45;
+ const x=(Math.random()*2-1)*130;
+ const y=(Math.random()*2-1)*60;
  noBtn7.style.position='relative';
  noBtn7.style.transform=`translate(${x}px,${y}px)`;
 }
@@ -201,26 +259,7 @@ function resetNoButton(){
 noBtn7.addEventListener('pointerenter',moveButton);
 noBtn7.addEventListener('touchstart',function(e){e.preventDefault();moveButton()},{passive:false});
 noBtn7.addEventListener('click',moveButton);
- 
- const catScenes = [
-  ["😻", "💕", "🐱"], ["🐱", "💗", "😽"],
-  ["😿", "💖", "🐈"], ["😽", "💞", "😻"],
-  ["🐱", "💌", "😻"], ["😽", "❤️", "🐱"],
-  ["😻", "💗", "😽"], ["😽", "💖", "🐱"]
-];
-
-document.querySelectorAll(".gif-img").forEach((img, i) => {
-  const cat = document.createElement("div");
-  cat.className = "cat-art";
-  cat.setAttribute("aria-label", "Cute romantic cats");
-  cat.innerHTML = catScenes[i]
-    .map(emoji => `<span>${emoji}</span>`)
-    .join("");
-  img.replaceWith(cat);
-});
- 
 </script>
 </body>
  </html>
-
  
