@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +41,29 @@ h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 .final-msg{font-size:22px;font-weight:800;color:#d63384;margin-top:14px}
 .tiny-heart{color:#ef4f8c;margin-top:20px;font-size:13px}
 @media(max-width:380px){.container{padding:22px 16px}.gif-img{width:130px;height:130px}.btn{padding:12px 19px}}
+ 
+.cat-art {
+  height: 148px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 48px;
+  margin: 0 auto 15px;
+  animation: catBounce 2s ease-in-out infinite;
+}
+.cat-art span:nth-child(2) {
+  font-size: 30px;
+  animation: heartBeat 1s infinite;
+}
+@keyframes catBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes heartBeat {
+  50% { transform: scale(1.3); }
+            
 </style>
 </head>
 
@@ -179,7 +201,26 @@ function resetNoButton(){
 noBtn7.addEventListener('pointerenter',moveButton);
 noBtn7.addEventListener('touchstart',function(e){e.preventDefault();moveButton()},{passive:false});
 noBtn7.addEventListener('click',moveButton);
+ 
+ const catScenes = [
+  ["😻", "💕", "🐱"], ["🐱", "💗", "😽"],
+  ["😿", "💖", "🐈"], ["😽", "💞", "😻"],
+  ["🐱", "💌", "😻"], ["😽", "❤️", "🐱"],
+  ["😻", "💗", "😽"], ["😽", "💖", "🐱"]
+];
+
+document.querySelectorAll(".gif-img").forEach((img, i) => {
+  const cat = document.createElement("div");
+  cat.className = "cat-art";
+  cat.setAttribute("aria-label", "Cute romantic cats");
+  cat.innerHTML = catScenes[i]
+    .map(emoji => `<span>${emoji}</span>`)
+    .join("");
+  img.replaceWith(cat);
+});
+ 
 </script>
 </body>
  </html>
+
  
