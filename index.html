@@ -109,34 +109,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
             position: relative;
-            height: 60px;
+            height: 55px;
             margin-top: 15px;
         }
 
         .btn {
-            padding: 10px 28px;
-            font-size: 16px;
+            padding: 10px 25px;
+            font-size: 15px;
             font-weight: bold;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: transform 0.1s ease;
+            transition: 0.1s ease;
         }
 
         .btn-yes {
             background-color: #28a745;
             color: white;
-            z-index: 5;
         }
 
         .btn-no {
             background-color: #dc3545;
             color: white;
-            position: relative;
-            z-index: 5;
         }
 
         .final-msg {
@@ -154,79 +151,90 @@
 
     <div class="container">
 
-        <!-- STEP 1: DO you love me? -->
+        <!-- STEP 1 -->
         <div class="step-box active" id="step1">
-            <img src="https://media.giphy.com/media/T1WqKkLY753dZghbu6/giphy.gif" class="gif-img" alt="Cute Cat">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
             <h2>DO you love me? 🤭</h2>
             <div class="sub-text">~iam all yours✨❣️</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(2)">Yes</button>
-                <button class="btn btn-no" id="noBtn1" onmouseover="moveButton('noBtn1')" ontouchstart="moveButton('noBtn1')" onclick="nextStep(2)">No</button>
+                <button class="btn btn-no" onclick="nextStep(2)">No</button>
             </div>
         </div>
 
-        <!-- STEP 2: Please think again! -->
+        <!-- STEP 2 -->
         <div class="step-box" id="step2">
-            <img src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif" class="gif-img" alt="Panda Thinking">
+            <img src="https://media.giphy.com/media/3ov9jLsBqPh6rjuHuM/giphy.gif" class="gif-img" alt="Panda Thinking">
             <h2>Please think again! 🙄</h2>
             <div class="sub-text">hamesha sath rhunga💃aise se aisa 👵hogao gi tbb v👀💞</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(3)">Yes</button>
-                <button class="btn btn-no" id="noBtn2" onmouseover="moveButton('noBtn2')" ontouchstart="moveButton('noBtn2')" onclick="nextStep(3)">No</button>
+                <button class="btn btn-no" onclick="nextStep(3)">No</button>
             </div>
         </div>
 
-        <!-- STEP 3: Ek aur baar Soch lo! -->
+        <!-- STEP 3 -->
         <div class="step-box" id="step3">
-            <img src="https://media.giphy.com/media/l0HlRnAWXxn0MhOBK/giphy.gif" class="gif-img" alt="Cute Sad">
-            <h2>Ek aur baar fhir Soch lo! 😣</h2>
-            <div class="sub-text">psnd toh tumne v kiya hoga n kbhi 1 sec ke liye v ｡⁠◕⁠‿⁠◕⁠｡</div>
+            <img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" class="gif-img" alt="Cute Cat Sad">
+            <h2>Ek aur baar fhir Soch lo! 😫😣</h2>
+            <div class="sub-text">kadar nhi h meri jbb chala junga tbb pta chalega 🥺🥺｡⁠◕⁠‿⁠◕⁠｡</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(4)">Yes</button>
-                <button class="btn btn-no" id="noBtn3" onmouseover="moveButton('noBtn3')" ontouchstart="moveButton('noBtn3')" onclick="nextStep(4)">No</button>
+                <button class="btn btn-no" onclick="nextStep(4)">No</button>
             </div>
         </div>
 
-        <!-- STEP 4: simmi Man jao na! -->
+        <!-- STEP 4 -->
         <div class="step-box" id="step4">
-            <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" class="gif-img" alt="Cute Hug">
+            <img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cute Panda Hug">
             <h2>simmi Man jao na! Kitna bhav khaogi 😭</h2>
-            <div class="sub-text">bhut mehnat lga isko bnane m yaar🌚</div>
+            <div class="sub-text">bhut mehnat lga isko bnane m yaar🌝🌚</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(5)">Yes</button>
-                <button class="btn btn-no" id="noBtn4" onmouseover="moveButton('noBtn4')" ontouchstart="moveButton('noBtn4')" onclick="nextStep(5)">No</button>
+                <button class="btn btn-no" onclick="nextStep(5)">No</button>
             </div>
         </div>
         
-        <!-- STEP 5: Poetry Page (Aapki Shayari) -->
+        <!-- STEP 5: Poetry Page -->
         <div class="step-box" id="step5">
-            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute Love">
-            <h2>Arz Kiya Hai... 💌</h2>
+            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute Cat Love">
+            <h2>apke liye Arz Kiya Hai... 💌</h2>
             <div class="poetry-box">
-                Aap hi ke bina hoon kyun bechain?<br>
+                Aap hi ke bina hoon kyun bechain?☺️<br>
                 Aap hi kyun meri zaroorat hain?<br>
                 Wehm itna haseen nahi hota,<br>
-                Waakai aap khoobsurat hain ❤️
+                Waakai aap khoobsurat hain 🤭❤️
             </div>
             <div class="btn-group" style="height: auto;">
                 <button class="btn btn-yes" style="width: 100%; background: #ff4b5c; color: white;" onclick="nextStep(6)">Next ✨</button>
             </div>
         </div>
           
-        <!-- STEP 6: Do u really love me 💖✨-->
+        <!-- STEP 6 -->
         <div class="step-box" id="step6">
-            <img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Cute Anime">
+            <img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Cute Cat Happy">
             <h2>i missed u in my every single moment 😭😭</h2>
             <div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(7)">Yes</button>
-                <button class="btn btn-no" id="noBtn6" onmouseover="moveButton('noBtn6')" ontouchstart="moveButton('noBtn6')" onclick="nextStep(7)">No</button>
+                <button class="btn btn-no" onclick="nextStep(7)">No</button>
+            </div>
+        </div>
+
+        <!-- STEP 7: Do you really love me? (NO BUTTON WILL RUN HERE) -->
+        <div class="step-box" id="step7">
+            <img src="https://media.giphy.com/media/T1WqKkLY753dZghbu6/giphy.gif" class="gif-img" alt="Cute Panda">
+            <h2>Do you really love me? 🥺💖</h2>
+            <div class="sub-text">Sach sach batana padega ab toh! 😉</div>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="nextStep(8)">Yes! 🥰</button>
+                <button class="btn btn-no" id="noBtn7" style="position: relative;" onmouseover="moveButton('noBtn7')" ontouchstart="moveButton('noBtn7')" onclick="nextStep(8)">No 😢</button>
             </div>
         </div>
         
-        <!-- STEP 7: Final Celebration Screen -->
-        <div class="step-box" id="step7">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Happy Celebration">
+        <!-- STEP 8: Final Celebration Screen -->
+        <div class="step-box" id="step8">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Happy Celebration Cat">
             <h2>Hehehehe, I knew it! u also Love me a lot 😘</h2>
             <div class="final-msg">Forever Yours ❤️✨</div>
         </div>
@@ -248,19 +256,19 @@
 
         // Step Navigation Logic
         function nextStep(stepNumber) {
-            document.querySelectorAll('.step-box').forEach(box => box.classList.remove('action-box active'));
+            document.querySelectorAll('.step-box').forEach(box => box.classList.remove('active'));
             document.getElementById('step' + stepNumber).classList.add('active');
         }
 
-        // Fast & Smooth Running 'No' Button Logic
+        // Running 'No' Button Logic (Only works on Step 7)
         function moveButton(btnId) {
             const btn = document.getElementById(btnId);
-            const x = (Math.random() - 0.5) * 200;
-            const y = (Math.random() - 0.5) * 120;
+            const x = (Math.random() - 0.5) * 180;
+            const y = (Math.random() - 0.5) * 100;
             btn.style.position = 'absolute';
             btn.style.transform = `translate(${x}px, ${y}px)`;
         }
     </script>
 </body>
-                </html>
-                    
+    </html>
+    
