@@ -1,274 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Special One 💖</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#190f25">
+<title>For My Special One 💖</title>
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        /* Floating Hearts Animation */
-        .heart-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .heart {
-            position: absolute;
-            color: rgba(255, 105, 180, 0.6);
-            font-size: 22px;
-            animation: floatUp 5s linear infinite;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            background: #ffe6eb;
-            padding: 30px 20px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            max-width: 90%;
-            width: 380px;
-        }
-
-        .step-box {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .step-box.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .gif-img {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 15px;
-        }
-
-        h2 {
-            color: #222;
-            font-size: 20px;
-            margin-bottom: 6px;
-            font-weight: 700;
-        }
-
-        .sub-text {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .poetry-box {
-            background: #fff0f3;
-            border-left: 4px solid #ff4b5c;
-            padding: 12px;
-            margin: 10px 0 15px 0;
-            border-radius: 8px;
-            font-style: italic;
-            color: #444;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            height: 55px;
-            margin-top: 15px;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            font-size: 15px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: 0.1s ease;
-        }
-
-        .btn-yes {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-no {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .final-msg {
-            font-size: 18px;
-            color: #d63384;
-            font-weight: bold;
-            margin-top: 12px;
-        }
-    </style>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;min-height:100svh;padding:20px 12px;
+ display:grid;place-items:center;overflow-x:hidden;
+ font-family:'Segoe UI',Tahoma,sans-serif;text-align:center;
+ background:radial-gradient(ellipse at 15% 15%,#76264c66,transparent 35%),
+ radial-gradient(ellipse at 85% 80%,#6439a766,transparent 35%),
+ linear-gradient(145deg,#100d1b,#211126 55%,#130d1c);
+ color:#382334;position:relative;isolation:isolate
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;opacity:.2;
+ background-image:linear-gradient(#ffffff14 1px,transparent 1px),
+ linear-gradient(90deg,#ffffff14 1px,transparent 1px);
+ background-size:34px 34px;pointer-events:none
+}
+.heart-bg{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.heart{
+ position:absolute;bottom:-40px;color:#ff70a9b3;
+ animation:floatUp linear forwards
+}
+@keyframes floatUp{
+ 0%{transform:translateY(0) scale(.6);opacity:0}
+ 12%{opacity:.8}
+ 100%{transform:translate(var(--drift),-115vh) scale(1.25);opacity:0}
+}
+.container{
+ position:relative;z-index:2;width:min(100%,430px);padding:27px 22px 20px;
+ border-radius:30px;background:linear-gradient(145deg,#fff8fbf7,#ffe5eff2);
+ border:1px solid #ffffffbf;
+ box-shadow:0 24px 70px #0006,0 0 40px #ff4d911f;
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+.topline{color:#c04b7c;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin:0 0 14px}
+.progress-wrap{height:4px;background:#cd5b8724;border-radius:20px;overflow:hidden;margin-bottom:22px}
+.progress{height:100%;width:12.5%;background:linear-gradient(90deg,#ff8fb5,#ed4383);transition:width .4s}
+.step-box{display:none}
+.step-box.active{display:block;animation:fadeIn .45s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.gif-img{width:145px;height:145px;object-fit:contain;margin:0 auto 14px;border-radius:22px;display:block}
+h2{color:#42283a;font-size:clamp(20px,5vw,23px);line-height:1.35;margin:0 0 9px;font-weight:800}
+.sub-text{color:#806a7a;font-size:13px;line-height:1.65;margin:0 auto 18px;max-width:330px}
+.poetry-box{
+ background:#ffffffbd;border:1px solid #ff699b30;border-left:4px solid #ff5d91;
+ padding:14px 10px;margin:14px 0 18px;border-radius:14px;
+ font-style:italic;color:#624356;font-size:14px;line-height:1.8
+}
+.btn-group{display:flex;justify-content:center;align-items:center;gap:12px;position:relative;min-height:52px;margin-top:15px}
+.btn{
+ min-height:46px;padding:12px 25px;font:inherit;font-size:14px;font-weight:750;
+ border:0;border-radius:14px;cursor:pointer;color:white;
+ box-shadow:0 7px 16px #46203522;transition:transform .2s,box-shadow .2s
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px #4620352b}
+.btn-yes{background:linear-gradient(135deg,#31bd70,#1f9c59)}
+.btn-no{background:linear-gradient(135deg,#ff7188,#e83c62)}
+.btn-next{width:100%;background:linear-gradient(110deg,#ff7ba8,#ef3f7d 75%,#dc367f)}
+.final-msg{font-size:20px;color:#d63384;font-weight:850;margin-top:14px}
+.tiny-heart{color:#ef4f8c;margin-top:18px;font-size:13px;opacity:.8}
+@media(max-width:380px){
+ .container{padding:22px 16px 18px;border-radius:25px}
+ .gif-img{width:125px;height:125px}
+ .btn{padding:11px 20px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
 </head>
+
 <body>
+<div class="heart-bg" id="heartBg"></div>
 
-    <!-- Floating Hearts -->
-    <div class="heart-bg" id="heartBg"></div>
+<main class="container">
+<p class="topline">A little something from my heart 💌</p>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div>
 
-    <div class="container">
+<div class="step-box active" id="step1">
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
+<h2>DO you love me? 🤭</h2>
+<div class="sub-text">~iam all yours✨❣️</div>
+<div class="btn-group">
+<button class="btn btn-yes" onclick="nextStep(2)">Yes</button>
+<button class="btn btn-no" onclick="nextStep(2)">No</button>
+</div></div>
 
-        <!-- STEP 1 -->
-        <div class="step-box active" id="step1">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
-            <h2>DO you love me? 🤭</h2>
-            <div class="sub-text">~iam all yours✨❣️</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(2)">Yes</button>
-                <button class="btn btn-no" onclick="nextStep(2)">No</button>
-            </div>
-        </div>
+<div class="step-box" id="step2">
+<img src="https://media.giphy.com/media/3ov9jLsBqPh6rjuHuM/giphy.gif" class="gif-img" alt="Panda Thinking">
+<h2>Please think again! 🙄</h2>
+<div class="sub-text">hamesha sath rhunga💃aise se aisa 👵hogao gi tbb v👀💞</div>
+<div class="btn-group">
+<button class="btn btn-yes" onclick="nextStep(3)">Yes</button>
+<button class="btn btn-no" onclick="nextStep(3)">No</button>
+</div></div>
 
-        <!-- STEP 2 -->
-        <div class="step-box" id="step2">
-            <img src="https://media.giphy.com/media/3ov9jLsBqPh6rjuHuM/giphy.gif" class="gif-img" alt="Panda Thinking">
-            <h2>Please think again! 🙄</h2>
-            <div class="sub-text">hamesha sath rhunga💃aise se aisa 👵hogao gi tbb v👀💞</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(3)">Yes</button>
-                <button class="btn btn-no" onclick="nextStep(3)">No</button>
-            </div>
-        </div>
+<div class="step-box" id="step3">
+<img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" class="gif-img" alt="Cute Cat Sad">
+<h2>Ek aur baar fhir Soch lo! 😣</h2>
+<div class="sub-text">psnd toh tumne v kiya hoga n kbhi 1 sec ke liye v ｡⁠◕⁠‿⁠◕⁠｡</div>
+<div class="btn-group">
+<button class="btn btn-yes" onclick="nextStep(4)">Yes</button>
+<button class="btn btn-no" onclick="nextStep(4)">No</button>
+</div></div>
 
-        <!-- STEP 3 -->
-        <div class="step-box" id="step3">
-            <img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" class="gif-img" alt="Cute Cat Sad">
-            <h2>Ek aur baar fhir Soch lo! 😣</h2>
-            <div class="sub-text">psnd toh tumne v kiya hoga n kbhi 1 sec ke liye v ｡⁠◕⁠‿⁠◕⁠｡</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(4)">Yes</button>
-                <button class="btn btn-no" onclick="nextStep(4)">No</button>
-            </div>
-        </div>
+<div class="step-box" id="step4">
+<img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cute Panda Hug">
+<h2>simmi Man jao na! Kitna bhav khaogi 😭</h2>
+<div class="sub-text">bhut mehnat lga isko bnane m yaar🌚</div>
+<div class="btn-group">
+<button class="btn btn-yes" onclick="nextStep(5)">Yes</button>
+<button class="btn btn-no" onclick="nextStep(5)">No</button>
+</div></div>
 
-        <!-- STEP 4 -->
-        <div class="step-box" id="step4">
-            <img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cute Panda Hug">
-            <h2>simmi Man jao na! Kitna bhav khaogi 😭</h2>
-            <div class="sub-text">bhut mehnat lga isko bnane m yaar🌚</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(5)">Yes</button>
-                <button class="btn btn-no" onclick="nextStep(5)">No</button>
-            </div>
-        </div>
-        
-        <!-- STEP 5: Poetry Page -->
-        <div class="step-box" id="step5">
-            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute Cat Love">
-            <h2>Arz Kiya Hai... 💌</h2>
-            <div class="poetry-box">
-                Aap hi ke bina hoon kyun bechain?<br>
-                Aap hi kyun meri zaroorat hain?<br>
-                Wehm itna haseen nahi hota,<br>
-                Waakai aap khoobsurat hain ❤️
-            </div>
-            <div class="btn-group" style="height: auto;">
-                <button class="btn btn-yes" style="width: 100%; background: #ff4b5c; color: white;" onclick="nextStep(6)">Next ✨</button>
-            </div>
-        </div>
-          
-        <!-- STEP 6 -->
-        <div class="step-box" id="step6">
-            <img src="https://media.giphy.com/media/ikoWnO3p731Q2sN/giphy.gif" class="gif-img" alt="Cute Cat Happy">
-            <h2>i missed u in my every single moment 😭😭</h2>
-            <div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(7)">Yes</button>
-                <button class="btn btn-no" onclick="nextStep(7)">No</button>
-            </div>
-        </div>
+<div class="step-box" id="step5">
+<img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute Cat Love">
+<h2>Arz Kiya Hai... 💌</h2>
+<div class="poetry-box">
+Aap hi ke bina hoon kyun bechain?<br>
+Aap hi kyun meri zaroorat hain?<br>
+Wehm itna haseen nahi hota,<br>
+Waakai aap khoobsurat hain ❤️
+</div>
+<div class="btn-group"><button class="btn btn-next" onclick="nextStep(6)">Next ✨</button></div>
+</div>
 
-        <!-- STEP 7: Do you really love me? (NO BUTTON WILL RUN HERE ONLY) -->
-        <div class="step-box" id="step7">
-            <img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" class="gif-img" alt="Cute Panda">
-            <h2>Do you really love me? 🥺💖</h2>
-            <div class="sub-text">Sach sach batana padega ab toh! 😉</div>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="nextStep(8)">Yes! 🥰</button>
-                <button class="btn btn-no" id="noBtn7" style="position: relative;" onmouseover="moveButton('noBtn7')" ontouchstart="moveButton('noBtn7')" onclick="nextStep(8)">No 😢</button>
-            </div>
-        </div>
-        
-        <!-- STEP 8: Final Celebration Screen -->
-        <div class="step-box" id="step8">
-            <img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Happy Celebration Cat">
-            <h2>Hehehehe, I knew it! u also Love me a lot 😘</h2>
-            <div class="final-msg">Forever Yours ❤️✨</div>
-        </div>
+<div class="step-box" id="step6">
+<img src="https://media.giphy.com/media/ikoWnO3p731Q2sN/giphy.gif" class="gif-img" alt="Cute Cat Happy">
+<h2>i missed u in my every single moment 😭😭</h2>
+<div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘</div>
+<div class="btn-group">
+<button class="btn btn-yes" onclick="nextStep(7)">Yes</button>
+<button class="btn btn-no" onclick="nextStep(7)">No</button>
+</div></div>
 
-    </div>
+<div class="step-box" id="step7">
+<img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" class="gif-img" alt="Cute Panda">
+<h2>Do you really love me? 🥺💖</h2>
+<div class="sub-text">Sach sach batana padega ab toh! 😉</div>
+<div class="btn-group" id="finalButtons">
+<button class="btn btn-yes" onclick="nextStep(8)">Yes! 🥰</button>
+<button class="btn btn-no" id="noBtn7" type="button">No 😢</button>
+</div></div>
 
-    <script>
-        // Floating Hearts Generator
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '💖';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.getElementById('heartBg').appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-        setInterval(createHeart, 300);
+<div class="step-box" id="step8">
+<img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Happy Celebration Cat">
+<h2>Hehehehe, I knew it! u also Love me a lot 😘</h2>
+<div class="final-msg">Forever Yours ❤️✨</div>
+</div>
 
-        // Step Navigation Logic
-        function nextStep(stepNumber) {
-            document.querySelectorAll('.step-box').forEach(box => box.classList.remove('active'));
-            document.getElementById('step' + stepNumber).classList.add('active');
-        }
+<div class="tiny-heart">made with love, just for you ♡</div>
+</main>
 
-        // Running 'No' Button Logic (Only works smoothly on Step 7 without overlapping Yes)
-        function moveButton(btnId) {
-            const btn = document.getElementById(btnId);
-            const x = (Math.random() - 0.5) * 220;
-            const y = (Math.random() - 0.5) * 140;
-            btn.style.position = 'absolute';
-            btn.style.transform = `translate(${x}px, ${y}px)`;
-        }
-    </script>
+<script>
+const heartBg=document.getElementById('heartBg');
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function createHeart(){
+ if(reducedMotion||heartBg.childElementCount>22)return;
+ const heart=document.createElement('span');
+ heart.className='heart';
+ heart.textContent=['💖','💕','♡','💗'][Math.floor(Math.random()*4)];
+ heart.style.left=Math.random()*100+'vw';
+ heart.style.fontSize=(13+Math.random()*17)+'px';
+ heart.style.animationDuration=(5+Math.random()*4)+'s';
+ heart.style.setProperty('--drift',(Math.random()*90-45)+'px');
+ heartBg.appendChild(heart);
+ heart.addEventListener('animationend',()=>heart.remove(),{once:true});
+}
+if(!reducedMotion)setInterval(createHeart,480);
+
+function nextStep(n){
+ const next=document.getElementById('step'+n);
+ if(!next)return;
+ document.querySelectorAll('.step-box').forEach(el=>el.classList.remove('active'));
+ next.classList.add('active');
+ document.getElementById('progress').style.width=(n/8*100)+'%';
+ if(n===7)resetNoButton();
+}
+
+const noBtn=document.getElementById('noBtn7');
+const area=document.getElementById('finalButtons');
+
+function moveButton(){
+ const maxX=Math.max(0,(area.clientWidth-noBtn.offsetWidth)/2-5);
+ const x=(Math.random()*2-1)*maxX;
+ const y=(Math.random()*2-1)*48;
+ noBtn.style.position='relative';
+ noBtn.style.transform=`translate(${x}px,${y}px)`;
+}
+function resetNoButton(){
+ noBtn.style.position='relative';
+ noBtn.style.transform='translate(0,0)';
+}
+noBtn.addEventListener('pointerenter',moveButton);
+noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveButton()},{passive:false});
+noBtn.addEventListener('click',moveButton);
+</script>
 </body>
-            </html>
+    </html>
     
