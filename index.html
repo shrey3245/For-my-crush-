@@ -45,6 +45,26 @@ body{
 .step-box{display:none}
 .step-box.active{display:block;animation:fade .4s ease}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+ /* FIX: Show only the current step */
+.step-box {
+  display: none;
+}
+
+.step-box.active {
+  display: block;
+  animation: fade 0.4s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
 .gif-img{width:155px;height:155px;object-fit:contain;margin:0 auto 14px;display:block;border-radius:20px}
 h2{font-size:clamp(20px,5vw,24px);line-height:1.4;margin:0 0 10px;color:#48283d}
 .sub-text{font-size:14px;line-height:1.7;color:#806a7a;margin:0 auto 18px}
