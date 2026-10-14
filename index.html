@@ -153,7 +153,7 @@
 
         <!-- STEP 1 -->
         <div class="step-box active" id="step1">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
+            <img src="https://media1.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute Cat">
             <h2>DO you love me? 🤭</h2>
             <div class="sub-text">~iam all yours✨❣️</div>
             <div class="btn-group">
@@ -176,8 +176,8 @@
         <!-- STEP 3 -->
         <div class="step-box" id="step3">
             <img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" class="gif-img" alt="Cute Cat Sad">
-            <h2>Ek aur baar fhir Soch lo! 😫😣</h2>
-            <div class="sub-text">kadar nhi h meri jbb chala junga tbb pta chalega 🥺🥺｡⁠◕⁠‿⁠◕⁠｡</div>
+            <h2>Ek aur baar fhir Soch lo! 😣</h2>
+            <div class="sub-text">psnd toh tumne v kiya hoga n kbhi 1 sec ke liye v ｡⁠◕⁠‿⁠◕⁠｡</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(4)">Yes</button>
                 <button class="btn btn-no" onclick="nextStep(4)">No</button>
@@ -188,7 +188,7 @@
         <div class="step-box" id="step4">
             <img src="https://media.giphy.com/media/10UxukXLDXqORK/giphy.gif" class="gif-img" alt="Cute Panda Hug">
             <h2>simmi Man jao na! Kitna bhav khaogi 😭</h2>
-            <div class="sub-text">bhut mehnat lga isko bnane m yaar🌝🌚</div>
+            <div class="sub-text">bhut mehnat lga isko bnane m yaar🌚</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="nextStep(5)">Yes</button>
                 <button class="btn btn-no" onclick="nextStep(5)">No</button>
@@ -197,13 +197,13 @@
         
         <!-- STEP 5: Poetry Page -->
         <div class="step-box" id="step5">
-            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Cute Cat Love">
-            <h2>apke liye Arz Kiya Hai... 💌</h2>
+            <img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Cute Cat Love">
+            <h2>Arz Kiya Hai... 💌</h2>
             <div class="poetry-box">
-                Aap hi ke bina hoon kyun bechain?☺️<br>
+                Aap hi ke bina hoon kyun bechain?<br>
                 Aap hi kyun meri zaroorat hain?<br>
                 Wehm itna haseen nahi hota,<br>
-                Waakai aap khoobsurat hain 🤭❤️
+                Waakai aap khoobsurat hain ❤️
             </div>
             <div class="btn-group" style="height: auto;">
                 <button class="btn btn-yes" style="width: 100%; background: #ff4b5c; color: white;" onclick="nextStep(6)">Next ✨</button>
@@ -212,7 +212,7 @@
           
         <!-- STEP 6 -->
         <div class="step-box" id="step6">
-            <img src="https://media.giphy.com/media/5VKbvrjxpUJCM/giphy.gif" class="gif-img" alt="Cute Cat Happy">
+            <img src="https://media.giphy.com/media/ikoWnO3p731Q2sN/giphy.gif" class="gif-img" alt="Cute Cat Happy">
             <h2>i missed u in my every single moment 😭😭</h2>
             <div class="sub-text">ye chommu sirf tumhra hona chahta h 😉i love u forever 😘</div>
             <div class="btn-group">
@@ -221,9 +221,9 @@
             </div>
         </div>
 
-        <!-- STEP 7: Do you really love me? (NO BUTTON WILL RUN HERE) -->
+        <!-- STEP 7: Do you really love me? (NO BUTTON WILL RUN HERE ONLY) -->
         <div class="step-box" id="step7">
-            <img src="https://media.giphy.com/media/T1WqKkLY753dZghbu6/giphy.gif" class="gif-img" alt="Cute Panda">
+            <img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" class="gif-img" alt="Cute Panda">
             <h2>Do you really love me? 🥺💖</h2>
             <div class="sub-text">Sach sach batana padega ab toh! 😉</div>
             <div class="btn-group">
@@ -234,7 +234,7 @@
         
         <!-- STEP 8: Final Celebration Screen -->
         <div class="step-box" id="step8">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Happy Celebration Cat">
+            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif-img" alt="Happy Celebration Cat">
             <h2>Hehehehe, I knew it! u also Love me a lot 😘</h2>
             <div class="final-msg">Forever Yours ❤️✨</div>
         </div>
@@ -260,15 +260,15 @@
             document.getElementById('step' + stepNumber).classList.add('active');
         }
 
-        // Running 'No' Button Logic (Only works on Step 7)
+        // Running 'No' Button Logic (Only works smoothly on Step 7 without overlapping Yes)
         function moveButton(btnId) {
             const btn = document.getElementById(btnId);
-            const x = (Math.random() - 0.5) * 180;
-            const y = (Math.random() - 0.5) * 100;
+            const x = (Math.random() - 0.5) * 220;
+            const y = (Math.random() - 0.5) * 140;
             btn.style.position = 'absolute';
             btn.style.transform = `translate(${x}px, ${y}px)`;
         }
     </script>
 </body>
     </html>
-    
+                    
