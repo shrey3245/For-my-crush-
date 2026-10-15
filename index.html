@@ -237,6 +237,28 @@ h2 {
   .heart, .floating-word, .step-box.active { animation: none; }
   .progress, .btn { transition: none; }
 }
+  
+  .feather {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  font-size: 26px;
+  animation: featherFly 900ms ease-out forwards;
+}
+
+@keyframes featherFly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--fly-x), var(--fly-y))
+               rotate(540deg) scale(0.4);
+  }
+  
+    }
+    
 </style>
 </head>
 
@@ -493,16 +515,35 @@ const noBtn7 = document.getElementById('noBtn7');
 const finalButtons = document.getElementById('finalButtons');
 
 function moveButton() {
-  const area = finalButtons.getBoundingClientRect();
-  const btn = noBtn7.getBoundingClientRect();
+  const btn = noBtn7;
+  if (!btn) return;
 
-  const maxX = Math.max(0, (area.width - btn.width) / 2 - 5);
-  const x = (Math.random() * 2 - 1) * maxX;
-  const y = (Math.random() * 2 - 1) * 28;
+  const rect = btn.getBoundingClientRect();
 
-  noBtn7.style.position = 'relative';
-  noBtn7.style.transform = `translate(${x}px, ${y}px)`;
-}
+  for (let i = 0; i < 12; i++) {
+    const feather = document.createElement('span');
+    feather.className = 'feather';
+    feather.textContent = '🪶';
+    feather.style.left = (rect.left + rect.width / 2) + 'px';
+    feather.style.top = (rect.top + rect.height / 2) + 'px';
+    feather.style.setProperty('--fly-x', (Math.random() * 300 - 150) + 'px');
+    feather.style.setProperty('--fly-y', (Math.random() * 300 - 150) + 'px');
+    document.body.appendChild(feather);
+    setTimeout(() => feather.remove(), 950);
+  }
+
+  btn.style.position = 'fixed';
+  btn.style.zIndex = '9999';
+  btn.style.transition = 'none';
+  btn.style.transform = 'none';
+
+  const margin = 15;
+  const maxX = Math.max(margin, window.innerWidth - btn.offsetWidth - margin);
+  const maxY = Math.max(margin, window.innerHeight - btn.offsetHeight - margin);
+
+  btn.style.left = (margin + Math.random() * (maxX - margin)) + 'px';
+  btn.style.top = (margin + Math.random() * (maxY - margin)) + 'px';
+       }
 
 function resetNoButton() {
   noBtn7.style.position = 'relative';
