@@ -238,26 +238,26 @@ h2 {
   .progress, .btn { transition: none; }
 }
   
-  .feather {
+.feather {
   position: fixed;
-  z-index: 99999;
+  z-index: 999999;
   pointer-events: none;
-  font-size: 26px;
-  animation: featherFly 900ms ease-out forwards;
+  font-size: 34px;
+  display: block;
+  animation: featherFly 1.8s ease-out forwards;
 }
 
 @keyframes featherFly {
   0% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate(0, 0) rotate(0deg) scale(1.2);
   }
   100% {
     opacity: 0;
     transform: translate(var(--fly-x), var(--fly-y))
-               rotate(540deg) scale(0.4);
+               rotate(720deg) scale(0.7);
   }
-  
-    }
+  }
     
 </style>
 </head>
@@ -523,13 +523,13 @@ function moveButton() {
   for (let i = 0; i < 12; i++) {
     const feather = document.createElement('span');
     feather.className = 'feather';
-    feather.textContent = '🪶';
+    feather.textContent = '🪽';
     feather.style.left = (rect.left + rect.width / 2) + 'px';
     feather.style.top = (rect.top + rect.height / 2) + 'px';
     feather.style.setProperty('--fly-x', (Math.random() * 300 - 150) + 'px');
     feather.style.setProperty('--fly-y', (Math.random() * 300 - 150) + 'px');
     document.body.appendChild(feather);
-    setTimeout(() => feather.remove(), 950);
+    setTimeout(() => feather.remove(), 1900);
   }
 
   btn.style.position = 'fixed';
