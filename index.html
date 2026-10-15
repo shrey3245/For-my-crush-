@@ -241,24 +241,41 @@ h2 {
 .feather {
   position: fixed;
   z-index: 999999;
+  width: 16px;
+  height: 38px;
   pointer-events: none;
-  font-size: 32px;
-  display: block;
+  border-radius: 100% 0 100% 0;
+  background: var(--feather-color);
+  box-shadow: 0 0 8px #ffffff66;
+  transform-origin: center;
   animation: featherFly 1.8s ease-out forwards;
-  filter: drop-shadow(0 2px 5px #ff69b4);
+}
+
+/* Feather ki beech wali dandi */
+.feather::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 34px;
+  background: #ffffffcc;
+  left: 7px;
+  top: 2px;
+  transform: rotate(-12deg);
+  border-radius: 50%;
 }
 
 @keyframes featherFly {
   0% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1.2);
+    transform: translate(0, 0) rotate(0deg) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translate(var(--fly-x), var(--fly-y))
-               rotate(720deg) scale(0.6);
+    transform:
+      translate(var(--fly-x), var(--fly-y))
+      rotate(650deg) scale(.6);
   }
-}
+  }
     
 </style>
 </head>
@@ -527,14 +544,25 @@ function moveButton() {
   '#34d399', '#f97316'
 ];
 
+const featherColors = [
+  '#ff69b4', // Pink
+  '#c084fc', // Purple
+  '#60a5fa', // Blue
+  '#facc15', // Golden
+  '#34d399', // Green
+  '#fb7185', // Rose
+  '#ffffff', // White
+  '#f97316'  // Orange
+];
+
 for (let i = 0; i < 24; i++) {
   const feather = document.createElement('span');
   feather.className = 'feather';
-  feather.textContent = '🪶';
 
-  feather.style.color =
+  const color =
     featherColors[Math.floor(Math.random() * featherColors.length)];
 
+  feather.style.setProperty('--feather-color', color);
   feather.style.left = (rect.left + rect.width / 2) + 'px';
   feather.style.top = (rect.top + rect.height / 2) + 'px';
 
@@ -547,7 +575,7 @@ for (let i = 0; i < 24; i++) {
 
   document.body.appendChild(feather);
   setTimeout(() => feather.remove(), 1900);
-}
+  
 
   btn.style.position = 'fixed';
   btn.style.zIndex = '9999';
