@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,20 +110,21 @@ body {
   border: 0;
   border-radius: 20px;
 }
-  
+
 .gif-img {
   width: 180px;
   height: 180px;
-    }
-  #step1 .gif-img {
+}
+
+#step1 .gif-img {
   display: block;
-  width: 100% !important;
-  max-width: 390px !important;
-  height: auto !important;
+  width: 100%;
+  max-width: 390px;
+  height: auto;
   object-fit: contain;
   margin: 0 auto 14px;
-  }
-  
+}
+
 h2 {
   font-size: clamp(21px, 5vw, 25px);
   line-height: 1.45;
@@ -226,18 +228,7 @@ h2 {
   z-index: 3;
 }
 
-@media (max-width: 380px) {
-  .container { padding: 22px 16px; }
-  .gif-img { width: 150px; height: 150px; }
-  .gif-frame { height: 180px; }
-  .btn { padding: 15px 20px; min-width: 115px; font-size: 16px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .heart, .floating-word, .step-box.active { animation: none; }
-  .progress, .btn { transition: none; }
-}
-  
+/* Colourful feather particles */
 .feather {
   position: fixed;
   z-index: 999999;
@@ -246,22 +237,21 @@ h2 {
   pointer-events: none;
   border-radius: 100% 0 100% 0;
   background: var(--feather-color);
-  box-shadow: 0 0 8px #ffffff66;
+  box-shadow: 0 0 8px #ffffff55;
   transform-origin: center;
-  animation: featherFly 1.8s ease-out forwards;
+  animation: featherFly 1.5s ease-out forwards;
 }
 
-/* Feather ki beech wali dandi */
 .feather::after {
   content: "";
   position: absolute;
   width: 2px;
-  height: 34px;
-  background: var(--feather-color);
+  height: 31px;
   left: 7px;
-  top: 2px;
-  transform: rotate(-12deg);
+  top: 3px;
+  background: var(--feather-stem);
   border-radius: 50%;
+  transform: rotate(-12deg);
 }
 
 @keyframes featherFly {
@@ -271,12 +261,26 @@ h2 {
   }
   100% {
     opacity: 0;
-    transform:
-      translate(var(--fly-x), var(--fly-y))
-      rotate(650deg) scale(.6);
+    transform: translate(var(--fly-x), var(--fly-y))
+               rotate(650deg) scale(.6);
   }
+}
+
+@media (max-width: 380px) {
+  .container { padding: 22px 16px; }
+  .gif-img { width: 150px; height: 150px; }
+  .gif-frame { height: 180px; }
+  .btn {
+    padding: 15px 20px;
+    min-width: 115px;
+    font-size: 16px;
   }
-    
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heart, .floating-word, .step-box.active { animation: none; }
+  .progress, .btn { transition: none; }
+}
 </style>
 </head>
 
@@ -303,7 +307,7 @@ h2 {
     <h2>DO you love me?? 🤭💗</h2>
     <div class="sub-text">~iam all yours!! ✨❣️</div>
     <div class="btn-group">
-      <button class="btn btn-yes" onclick="nextStep(1)">Yes 🌜💖</button>
+      <button class="btn btn-yes" onclick="nextStep(2)">Yes 🌜💖</button>
       <button class="btn btn-no" onclick="nextStep(2)">No 😶😵</button>
     </div>
   </section>
@@ -317,7 +321,7 @@ h2 {
     <h2>Please think again! 🙄💕</h2>
     <div class="sub-text">Hamesha sath rahunga 💃 yaha se yaha tkk 👵 sirf tumhara pakka... 👀💞</div>
     <div class="btn-group">
-      <button class="btn btn-yes" onclick="nextStep(2)">Yes 🌹🌷</button>
+      <button class="btn btn-yes" onclick="nextStep(3)">Yes 🌹🌷</button>
       <button class="btn btn-no" onclick="nextStep(3)">No 😬🥺</button>
     </div>
   </section>
@@ -331,7 +335,7 @@ h2 {
     <h2>Ek aur baar phir soch lo! 😣</h2>
     <div class="sub-text">Kadar kar le, nahi milega mere jaisa kabhi koi aur 😢😭 ｡◕‿◕｡💗</div>
     <div class="btn-group">
-      <button class="btn btn-yes" onclick="nextStep(3)">Yes 💅💞</button>
+      <button class="btn btn-yes" onclick="nextStep(4)">Yes 💅💞</button>
       <button class="btn btn-no" onclick="nextStep(4)">No 🤐😔</button>
     </div>
   </section>
@@ -415,6 +419,7 @@ const reducedMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
 ).matches;
 
+/* FLOATING HEARTS AND WORDS */
 function createFloating(className, words) {
   if (reducedMotion || heartBg.childElementCount > 24) return;
 
@@ -446,7 +451,7 @@ if (!reducedMotion) {
   }, 2200);
 }
 
-// MUSIC
+/* MUSIC */
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 
@@ -479,14 +484,11 @@ music.addEventListener('error', () => {
   musicBtn.textContent = '🎵 Music unavailable';
 });
 
-// STEP NAVIGATION
+/* STEP NAVIGATION */
 function nextStep(n) {
   const target = document.getElementById('step' + n);
 
-  if (!target) {
-    console.error('Step not found:', n);
-    return;
-  }
+  if (!target) return;
 
   document.querySelectorAll('.step-box').forEach(step => {
     step.classList.remove('active');
@@ -500,7 +502,7 @@ function nextStep(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// CELEBRATION
+/* CELEBRATION */
 function triggerCelebration() {
   nextStep(8);
 
@@ -516,88 +518,73 @@ function triggerCelebration() {
       confetti({
         particleCount: 80,
         angle: 60,
-        origin: { x: 0 }
+        origin: { x: 0 },
+        colors: ['#ff1493', '#a855f7', '#ffd700', '#00bfff']
       });
 
       confetti({
         particleCount: 80,
         angle: 120,
-        origin: { x: 1 }
+        origin: { x: 1 },
+        colors: ['#ff1493', '#a855f7', '#ffd700', '#00bfff']
       });
     }, 300);
   }
 }
 
-// RUNAWAY NO BUTTON
+/* RUNAWAY NO BUTTON + COLOURFUL FEATHERS */
 const noBtn7 = document.getElementById('noBtn7');
-const finalButtons = document.getElementById('finalButtons');
 
-  function moveButton() {
-  const btn = noBtn7;
-  if (!btn) return;
+function moveButton() {
+  if (!noBtn7 || !document.getElementById('step7').classList.contains('active')) {
+    return;
+  }
 
-  const rect = btn.getBoundingClientRect();
+  const rect = noBtn7.getBoundingClientRect();
 
   const featherColors = [
     '#ff1493', // Pink
     '#a855f7', // Purple
     '#00bfff', // Blue
-    '#ffd700', // Golden
+    '#ffd700', // Gold
     '#00c853', // Green
     '#ff4500', // Orange
     '#fb7185', // Rose
     '#ffffff'  // White
   ];
 
-  // Colourful feather particles
   for (let i = 0; i < 24; i++) {
     const feather = document.createElement('span');
     feather.className = 'feather';
 
-    const color =
-      featherColors[Math.floor(Math.random() * featherColors.length)];
+    const color = featherColors[
+      Math.floor(Math.random() * featherColors.length)
+    ];
 
     feather.style.setProperty('--feather-color', color);
+    feather.style.setProperty('--feather-stem', color);
     feather.style.left = (rect.left + rect.width / 2) + 'px';
     feather.style.top = (rect.top + rect.height / 2) + 'px';
 
-    feather.style.setProperty(
-      '--fly-x',
-      (Math.random() * 400 - 200) + 'px'
-    );
-
-    feather.style.setProperty(
-      '--fly-y',
-      (Math.random() * 400 - 200) + 'px'
-    );
+    feather.style.setProperty('--fly-x', (Math.random() * 400 - 200) + 'px');
+    feather.style.setProperty('--fly-y', (Math.random() * 400 - 200) + 'px');
 
     document.body.appendChild(feather);
-    setTimeout(() => feather.remove(), 1900);
+    setTimeout(() => feather.remove(), 1600);
   }
 
-  // Move the No button
-  btn.style.position = 'fixed';
-  btn.style.zIndex = '9999';
-  btn.style.transition = 'none';
-  btn.style.transform = 'none';
+  noBtn7.style.position = 'fixed';
+  noBtn7.style.zIndex = '9999';
+  noBtn7.style.transition = 'none';
+  noBtn7.style.transform = 'none';
 
   const margin = 15;
-  const maxX = Math.max(
-    margin,
-    window.innerWidth - btn.offsetWidth - margin
-  );
-  const maxY = Math.max(
-    margin,
-    window.innerHeight - btn.offsetHeight - margin
-  );
+  const maxX = Math.max(margin, window.innerWidth - noBtn7.offsetWidth - margin);
+  const maxY = Math.max(margin, window.innerHeight - noBtn7.offsetHeight - margin);
 
-  btn.style.left =
-    (margin + Math.random() * (maxX - margin)) + 'px';
-
-  btn.style.top =
-    (margin + Math.random() * (maxY - margin)) + 'px';
-      }
-
+  noBtn7.style.left = (margin + Math.random() * (maxX - margin)) + 'px';
+  noBtn7.style.top = (margin + Math.random() * (maxY - margin)) + 'px';
+}
 
 function resetNoButton() {
   noBtn7.style.position = 'relative';
@@ -610,14 +597,20 @@ function resetNoButton() {
   noBtn7.style.transition = '';
 }
 
-noBtn7.addEventListener('pointerenter', moveButton);
-noBtn7.addEventListener('touchstart', event => {
+/* Desktop: move when pointer approaches */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  noBtn7.addEventListener('pointerenter', moveButton);
+}
+
+/* Mobile: move on touch */
+noBtn7.addEventListener('touchstart', function(event) {
   event.preventDefault();
   moveButton();
 }, { passive: false });
 
+/* Fallback for clicking */
 noBtn7.addEventListener('click', moveButton);
 </script>
 </body>
-     </html>
-     
+  </html>
+  
