@@ -547,7 +547,13 @@ function moveButton() {
 
 function resetNoButton() {
   noBtn7.style.position = 'relative';
-  noBtn7.style.transform = 'translate(0, 0)';
+  noBtn7.style.left = 'auto';
+  noBtn7.style.top = 'auto';
+  noBtn7.style.right = 'auto';
+  noBtn7.style.bottom = 'auto';
+  noBtn7.style.zIndex = '3';
+  noBtn7.style.transform = 'none';
+  noBtn7.style.transition = '';
 }
 
 noBtn7.addEventListener('pointerenter', moveButton);
