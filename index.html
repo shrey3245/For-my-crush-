@@ -257,7 +257,7 @@ h2 {
   position: absolute;
   width: 2px;
   height: 34px;
-  background: #ffffffcc;
+  background: var(--feather-color);
   left: 7px;
   top: 2px;
   transform: rotate(-12deg);
@@ -532,63 +532,72 @@ function triggerCelebration() {
 const noBtn7 = document.getElementById('noBtn7');
 const finalButtons = document.getElementById('finalButtons');
 
-function moveButton() {
+  function moveButton() {
   const btn = noBtn7;
   if (!btn) return;
 
   const rect = btn.getBoundingClientRect();
 
   const featherColors = [
-  '#ff69b4', '#c084fc', '#60a5fa',
-  '#facc15', '#ffffff', '#fb7185',
-  '#34d399', '#f97316'
-];
+    '#ff1493', // Pink
+    '#a855f7', // Purple
+    '#00bfff', // Blue
+    '#ffd700', // Golden
+    '#00c853', // Green
+    '#ff4500', // Orange
+    '#fb7185', // Rose
+    '#ffffff'  // White
+  ];
 
-const featherColors = [
-  '#ff69b4', // Pink
-  '#c084fc', // Purple
-  '#60a5fa', // Blue
-  '#facc15', // Golden
-  '#34d399', // Green
-  '#fb7185', // Rose
-  '#ffffff', // White
-  '#f97316'  // Orange
-];
+  // Colourful feather particles
+  for (let i = 0; i < 24; i++) {
+    const feather = document.createElement('span');
+    feather.className = 'feather';
 
-for (let i = 0; i < 24; i++) {
-  const feather = document.createElement('span');
-  feather.className = 'feather';
+    const color =
+      featherColors[Math.floor(Math.random() * featherColors.length)];
 
-  const color =
-    featherColors[Math.floor(Math.random() * featherColors.length)];
+    feather.style.setProperty('--feather-color', color);
+    feather.style.left = (rect.left + rect.width / 2) + 'px';
+    feather.style.top = (rect.top + rect.height / 2) + 'px';
 
-  feather.style.setProperty('--feather-color', color);
-  feather.style.left = (rect.left + rect.width / 2) + 'px';
-  feather.style.top = (rect.top + rect.height / 2) + 'px';
+    feather.style.setProperty(
+      '--fly-x',
+      (Math.random() * 400 - 200) + 'px'
+    );
 
-  feather.style.setProperty(
-    '--fly-x', (Math.random() * 400 - 200) + 'px'
-  );
-  feather.style.setProperty(
-    '--fly-y', (Math.random() * 400 - 200) + 'px'
-  );
+    feather.style.setProperty(
+      '--fly-y',
+      (Math.random() * 400 - 200) + 'px'
+    );
 
-  document.body.appendChild(feather);
-  setTimeout(() => feather.remove(), 1900);
-  
+    document.body.appendChild(feather);
+    setTimeout(() => feather.remove(), 1900);
+  }
 
+  // Move the No button
   btn.style.position = 'fixed';
   btn.style.zIndex = '9999';
   btn.style.transition = 'none';
   btn.style.transform = 'none';
 
   const margin = 15;
-  const maxX = Math.max(margin, window.innerWidth - btn.offsetWidth - margin);
-  const maxY = Math.max(margin, window.innerHeight - btn.offsetHeight - margin);
+  const maxX = Math.max(
+    margin,
+    window.innerWidth - btn.offsetWidth - margin
+  );
+  const maxY = Math.max(
+    margin,
+    window.innerHeight - btn.offsetHeight - margin
+  );
 
-  btn.style.left = (margin + Math.random() * (maxX - margin)) + 'px';
-  btn.style.top = (margin + Math.random() * (maxY - margin)) + 'px';
-       }
+  btn.style.left =
+    (margin + Math.random() * (maxX - margin)) + 'px';
+
+  btn.style.top =
+    (margin + Math.random() * (maxY - margin)) + 'px';
+      }
+
 
 function resetNoButton() {
   noBtn7.style.position = 'relative';
