@@ -1,480 +1,539 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#190f25">
-<title>💖☺️ Mikriti 💖🐱</title>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-<style>
-*{box-sizing:border-box}
-
-body{
- margin:0;min-height:100vh;padding:75px 14px 25px;
- display:grid;place-items:center;overflow-x:hidden;
- font-family:"Segoe UI",sans-serif;text-align:center;
- background:radial-gradient(circle at top,#572447,#190f25 65%,#100b18);
- color:#402437;
-}
-
-.heart-bg{
- position:fixed;inset:0;overflow:hidden;
- pointer-events:none;z-index:0;
-}
-
-.heart,.floating-word{
- position:absolute;bottom:-45px;pointer-events:none;
- animation:floatUp linear forwards;
-}
-
-.floating-word{
- color:rgba(255,182,193,.65);
- font-size:13px;font-weight:bold;white-space:nowrap;
-}
-
-@keyframes floatUp{
- to{transform:translateY(-110vh) rotate(25deg);opacity:0}
-}
-
-@keyframes fade{
- from{opacity:0;transform:translateY(10px)}
- to{opacity:1;transform:translateY(0)}
-}
-
-.container{
- position:relative;z-index:2;width:min(100%,440px);
- padding:27px 22px;border-radius:28px;
- background:linear-gradient(145deg,#fff8fc,#ffe5f0);
- box-shadow:0 20px 65px #0008;
- border:1px solid #ffffffa0;
-}
-
-.topline{
- color:#c04b7c;font-size:11px;font-weight:bold;
- letter-spacing:1.5px;line-height:1.8;
-}
-
-.progress-wrap{
- height:6px;background:#f4cfdf;border-radius:10px;
- margin:18px 0 24px;overflow:hidden;
-}
-
-.progress{
- height:100%;width:12.5%;
- background:linear-gradient(90deg,#ff91b9,#ec347e);
- transition:width .4s;
-}
-
-.step-box{display:none}
-.step-box.active{display:block;animation:fade .4s ease}
-
-.gif-img,.gif-frame{
- display:block;width:100%;max-width:300px;height:200px;
- object-fit:contain;margin:0 auto 14px;
- border:0;border-radius:20px;
-}
-
-.gif-img{width:180px;height:180px}
-
-#step1 .gif-img{
- width:100%;max-width:390px;height:auto;
- object-fit:contain;margin:0 auto 14px;
-}
-
-h2{
- font-size:clamp(21px,5vw,25px);line-height:1.45;
- margin:0 0 10px;color:#48283d;
-}
-
-.sub-text{
- font-size:15px;line-height:1.8;color:#806a7a;
- margin:0 auto 18px;overflow-wrap:anywhere;
-}
-
-.poetry-box{
- background:white;border-left:4px solid #ff5d91;
- border-radius:14px;padding:15px 10px;
- line-height:1.9;font-style:italic;margin:15px 0 20px;
-}
-
-.btn-group{
- display:flex;justify-content:center;align-items:center;
- gap:14px;min-height:64px;margin-top:18px;flex-wrap:wrap;
-}
-
-.btn{
- border:0;border-radius:16px;padding:16px 24px;
- min-height:58px;min-width:125px;font-size:17px;
- font-weight:800;color:white;cursor:pointer;
- box-shadow:0 7px 18px #8d436344;
- transition:transform .15s,filter .15s;
- touch-action:manipulation;
- -webkit-tap-highlight-color:transparent;
-}
-
-.btn:active{transform:scale(.96)}
-.btn:hover{filter:brightness(1.05)}
-
-.btn-yes{background:linear-gradient(135deg,#31bd70,#18894e)}
-.btn-no{background:linear-gradient(135deg,#ff7188,#e83c62)}
-.btn-next{width:100%;background:linear-gradient(110deg,#ff7ba8,#e9367c)}
-
-.final-msg{
- font-size:25px;font-weight:800;color:#d63384;margin-top:14px;
-}
-
-.tiny-heart{color:#ef4f8c;margin-top:20px;font-size:13px}
-
-.music-btn{
- position:fixed;top:14px;right:14px;z-index:10001;
- background:#382039;border:1px solid #ffffff66;color:white;
- padding:11px 15px;border-radius:22px;font-size:14px;
- font-weight:bold;cursor:pointer;
-}
-
-#ytPlayer{
- position:fixed;top:76px;right:10px;
- width:200px;height:113px;z-index:10000;
- border:2px solid #ff7ba8;border-radius:10px;
- overflow:hidden;background:#190f25;
-}
-
-#finalButtons{position:relative}
-#noBtn7{position:relative;z-index:3}
-
-@keyframes puffFly{
- 0%{opacity:1;transform:translate(0,0) scale(1)}
- 100%{opacity:0;transform:translate(var(--fly-x),var(--fly-y)) scale(.6)}
-}
-
-@media(max-width:380px){
- .container{padding:22px 16px}
- .gif-img{width:150px;height:150px}
- .gif-frame{height:180px}
- .btn{padding:15px 20px;min-width:115px;font-size:16px}
- #ytPlayer{width:160px;height:90px;top:76px;right:8px}
-}
-
-@media(prefers-reduced-motion:reduce){
- .heart,.floating-word,.step-box.active{animation:none}
- .progress,.btn{transition:none}
-}
-</style>
-</head>
-
-<body>
-
-<div class="heart-bg" id="heartBg"></div>
-
-<div id="ytPlayer" aria-label="YouTube music player"></div>
-
-<button class="music-btn" id="musicBtn" type="button">
-🎵 Play Music
-</button>
-
-<main class="container">
-
-<p class="topline">SOMETHING SPECIAL FROM MY HEART ❤️💌🐾</p>
-
-<div class="progress-wrap">
- <div class="progress" id="progress"></div>
-</div>
-
-<section class="step-box active" id="step1">
-<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif-img" alt="Cute cat">
-<h2>DO you love me?? 🤭💗</h2>
-<div class="sub-text">~iam all yours!! ✨❣️</div>
-<div class="btn-group">
-<button class="btn btn-yes" onclick="nextStep(2)">Yes 🌜💖</button>
-<button class="btn btn-no" onclick="nextStep(2)">No 😶😵</button>
-</div>
-</section>
-
-<section class="step-box" id="step2">
-<iframe class="gif-frame" src="https://giphy.com/embed/ZxyOSmk7XzhzYmmtM5" title="Cute anime" loading="lazy" allowfullscreen></iframe>
-<h2>Please think again! 🙄💕</h2>
-<div class="sub-text">Hamesha sath rahunga 💃 yaha se yaha tkk 👵 sirf tumhara pakka... 👀💞</div>
-<div class="btn-group">
-<button class="btn btn-yes" onclick="nextStep(3)">Yes 🌹🌷</button>
-<button class="btn btn-no" onclick="nextStep(3)">No 😬🥺</button>
-</div>
-</section>
-
-<section class="step-box" id="step3">
-<iframe class="gif-frame" src="https://giphy.com/embed/5SbA6ZRhiI5jriUwqu" title="Cat with flowers" loading="lazy" allowfullscreen></iframe>
-<h2>Ek aur baar phir soch lo! 😣</h2>
-<div class="sub-text">Kadar kar le, nahi milega mere jaisa kabhi koi aur 😢😭 ｡◕‿◕｡💗</div>
-<div class="btn-group">
-<button class="btn btn-yes" onclick="nextStep(4)">Yes 💅💞</button>
-<button class="btn btn-no" onclick="nextStep(4)">No 🤐😔</button>
-</div>
-</section>
-
-<section class="step-box" id="step4">
-<iframe class="gif-frame" src="https://giphy.com/embed/PleihcHr0kbJVD0bNe" title="Cute kitty" loading="lazy" allowfullscreen></iframe>
-<h2>Simmi, maan jao na! Kitna bhav khaogi 😭💘</h2>
-<div class="sub-text">Bahut mehnat lagi isko banane mein yaar, sachhi 🌚🐼</div>
-<div class="btn-group">
-<button class="btn btn-next" onclick="nextStep(5)">Next 📅💖</button>
-</div>
-</section>
-
-<section class="step-box" id="step5">
-<iframe class="gif-frame" src="https://giphy.com/embed/y0Ts0jklB4eXWDMi4l" title="Romantic GIF" loading="lazy" allowfullscreen></iframe>
-<h2>Kuch likha hai 🤭... 💌</h2>
-<div class="poetry-box">
-Aap hi ke bina kyun hoon bechain? 🙃<br>
-Aap hi kyun meri zaroorat hain?<br>
-Wehm itna haseen nahi hota, 🤗<br>
-Waakai aap khoobsurat hain!! ❤️
-</div>
-<div class="btn-group">
-<button class="btn btn-next" onclick="nextStep(6)">Next ♋🦀</button>
-</div>
-</section>
-
-<section class="step-box" id="step6">
-<iframe class="gif-frame" src="https://giphy.com/embed/sXv0vaA4331Ti" title="Cute pleading cat" loading="lazy" allowfullscreen></iframe>
-<h2>I missed u in my every single moment 😭😭</h2>
-<div class="sub-text">Jiska naam hi Smriti ho, usko koi kaise bhula sakta hai 😔 Stupid, main samajh hi nahi paya 🥺💞</div>
-<div class="btn-group">
-<button class="btn btn-next" onclick="nextStep(7)">Next 😎🕊️</button>
-</div>
-</section>
-
-<section class="step-box" id="step7">
-<iframe class="gif-frame" src="https://giphy.com/embed/xPnuBtFB5Un5Yo3JgG" title="Romantic GIF" loading="lazy" allowfullscreen></iframe>
-<h2>Do you really love me? 🥺💖</h2>
-<div class="sub-text">Sach sach batana padega ab toh!! 🌝😅🐾</div>
-<div class="btn-group" id="finalButtons">
-<button class="btn btn-yes" onclick="triggerCelebration()">Yes! 🤭🙃</button>
-<button class="btn btn-no" id="noBtn7" type="button">No 💔💘</button>
-</div>
-</section>
-
-<section class="step-box" id="step8">
-<iframe class="gif-frame" src="https://giphy.com/embed/6C5LFuLcnhTZeypW0E" title="Cat with rose" loading="lazy" allowfullscreen></iframe>
-<h2>Hehehehe, I knew it! You also love me a lot 😘💗</h2>
-<div class="sub-text">Aaj pata chala sab mujhe lucky kyun kehte hain... 💖</div>
-<div class="final-msg">Forever Yours ❤️✨</div>
-<div class="sub-text">In my ♥️ Meow meow… only you, Simmi 🐱💕</div>
-</section>
-
-<div class="tiny-heart">Made with love, just for you 😘 Mikriti ♡ 🐾</div>
-</main>
-
-<script>
-/* FLOATING HEARTS */
-const heartBg = document.getElementById('heartBg');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function createFloating(className, words) {
- if (reducedMotion || heartBg.childElementCount > 24) return;
-
- const item = document.createElement('span');
- item.className = className;
- item.textContent = words[Math.floor(Math.random() * words.length)];
- item.style.left = Math.random() * 92 + 'vw';
- item.style.animationDuration =
-   (className === 'heart' ? 5 + Math.random() * 4 : 7 + Math.random() * 4) + 's';
-
- if (className === 'heart') item.style.fontSize = (14 + Math.random() * 15) + 'px';
-
- heartBg.appendChild(item);
- item.addEventListener('animationend', () => item.remove(), {once:true});
-}
-
-if (!reducedMotion) {
- setInterval(() => createFloating('heart', ['💖','💕','🐾','❣️','💗','😽']), 650);
- setInterval(() => createFloating('floating-word', ['Cutie 🐱','Mikriti ❣️','Forever 💖','My World ✨','Simmi 💕']), 2200);
-}
-
-/* MUSIC PLAYER */
-const musicBtn = document.getElementById('musicBtn');
-const SONG_URL = 'https://www.youtube.com/watch?v=LIEiEwpEhWM';
-
-let ytPlayer = null;
-let playerReady = false;
-let musicPlaying = false;
-let wantsMusic = false;
-let playerFailed = false;
-
-function createYouTubePlayer() {
- if (!window.YT || !window.YT.Player || ytPlayer) return;
-
- ytPlayer = new YT.Player('ytPlayer', {
-  width: '200',
-  height: '113',
-  videoId: 'LIEiEwpEhWM',
-  playerVars: {
-   playsinline: 1,
-   controls: 1,
-   rel: 0
-  },
-  events: {
-   onReady: function() {
-    playerReady = true;
-    musicBtn.textContent = '🎵 Play Music';
-
-    if (wantsMusic) {
-     ytPlayer.playVideo();
-    }
-   },
-
-   onStateChange: function(event) {
-    musicPlaying = event.data === YT.PlayerState.PLAYING;
-    musicBtn.textContent = musicPlaying ? '🔇 Pause Music' : '🎵 Play Music';
-   },
-
-   onError: function() {
-    playerFailed = true;
-    musicBtn.textContent = '▶️ Open Song';
-   }
-  }
- });
-}
-
-window.onYouTubeIframeAPIReady = createYouTubePlayer;
-
-musicBtn.addEventListener('click', function() {
- if (playerFailed) {
-  window.open(SONG_URL, '_blank');
-  return;
- }
-
- if (!playerReady || !ytPlayer) {
-  wantsMusic = true;
-  musicBtn.textContent = '⏳ Loading Music...';
-  return;
- }
-
- if (musicPlaying) {
-  wantsMusic = false;
-  ytPlayer.pauseVideo();
- } else {
-  wantsMusic = true;
-  ytPlayer.unMute();
-  ytPlayer.playVideo();
- }
-});
-
-/* If the API takes a moment to load, try again when it becomes available. */
-const youtubeScript = document.createElement('script');
-youtubeScript.src = 'https://www.youtube.com/iframe_api';
-youtubeScript.onerror = function() {
- musicBtn.textContent = '▶️ Open Song';
- playerFailed = true;
-};
-document.head.appendChild(youtubeScript);
-
-setTimeout(function() {
- if (window.YT && window.YT.Player) createYouTubePlayer();
-}, 1500);
-
-/* STEP NAVIGATION */
-function nextStep(n) {
- const target = document.getElementById('step' + n);
- if (!target) return;
-
- document.querySelectorAll('.step-box').forEach(function(step) {
-  step.classList.remove('active');
- });
-
- target.classList.add('active');
- document.getElementById('progress').style.width = (n / 8 * 100) + '%';
-
- if (n === 7) resetNoButton();
-
- window.scrollTo({top:0, behavior:'smooth'});
-}
-
-/* CELEBRATION */
-function triggerCelebration() {
- nextStep(8);
-
- if (typeof confetti === 'function') {
-  confetti({
-   particleCount:130,
-   spread:75,
-   origin:{y:0.6},
-   colors:['#ff4b5c','#ff7baf','#ffffff','#ff1493']
-  });
-
-  setTimeout(function() {
-   confetti({
-    particleCount:80,
-    angle:60,
-    origin:{x:0},
-    colors:['#ff1493','#a855f7','#ffd700','#00bfff']
-   });
-
-   confetti({
-    particleCount:80,
-    angle:120,
-    origin:{x:1},
-    colors:['#ff1493','#a855f7','#ffd700','#00bfff']
-   });
-  }, 300);
- }
-}
-
-/* RUNAWAY NO BUTTON */
-const noBtn7 = document.getElementById('noBtn7');
-
-function moveButton() {
- if (!noBtn7 || !document.getElementById('step7').classList.contains('active')) return;
-
- const rect = noBtn7.getBoundingClientRect();
-
- for (let i = 0; i < 18; i++) {
-  const puff = document.createElement('span');
-  puff.textContent = '💨';
-
-  puff.style.cssText =
-   'position:fixed;z-index:999999;pointer-events:none;font-size:22px;' +
-   'left:' + (rect.left + rect.width / 2) + 'px;' +
-   'top:' + (rect.top + rect.height / 2) + 'px;' +
-   'animation:puffFly 1.2s ease-out forwards;';
-
-  puff.style.setProperty('--fly-x', (Math.random() * 300 - 150) + 'px');
-  puff.style.setProperty('--fly-y', (Math.random() * 300 - 150) + 'px');
-
-  document.body.appendChild(puff);
-  setTimeout(() => puff.remove(), 1300);
- }
-
- const margin = 15;
- const maxX = Math.max(margin, window.innerWidth - noBtn7.offsetWidth - margin);
- const maxY = Math.max(margin, window.innerHeight - noBtn7.offsetHeight - margin);
-
- noBtn7.style.position = 'fixed';
- noBtn7.style.zIndex = '9999';
- noBtn7.style.left = (margin + Math.random() * (maxX - margin)) + 'px';
- noBtn7.style.top = (margin + Math.random() * (maxY - margin)) + 'px';
-}
-
-function resetNoButton() {
- noBtn7.style.position = 'relative';
- noBtn7.style.left = 'auto';
- noBtn7.style.top = 'auto';
- noBtn7.style.right = 'auto';
- noBtn7.style.bottom = 'auto';
- noBtn7.style.zIndex = '3';
-}
-
-if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
- noBtn7.addEventListener('pointerenter', moveButton);
-}
-
-noBtn7.addEventListener('touchstart', function(event) {
- event.preventDefault();
- moveButton();
-}, {passive:false});
-
-noBtn7.addEventListener('click', moveButton);
-</script>
-
-</body>
- </html>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<meta name="theme-color" content="#190f25">  
+<title>💖☺️ Mikriti 💖🐱</title>  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>  <style>  
+* { box-sizing: border-box; }  
+  
+body {  
+  margin: 0;  
+  min-height: 100vh;  
+  padding: 75px 14px 25px;  
+  display: grid;  
+  place-items: center;  
+  overflow-x: hidden;  
+  font-family: "Segoe UI", sans-serif;  
+  text-align: center;  
+  background: radial-gradient(circle at top, #572447, #190f25 65%, #100b18);  
+  color: #402437;  
+}  
+  
+.heart-bg {  
+  position: fixed;  
+  inset: 0;  
+  overflow: hidden;  
+  pointer-events: none;  
+  z-index: 0;  
+}  
+  
+.heart, .floating-word {  
+  position: absolute;  
+  bottom: -45px;  
+  pointer-events: none;  
+  animation: floatUp linear forwards;  
+}  
+  
+.floating-word {  
+  color: rgba(255, 182, 193, .65);  
+  font-size: 13px;  
+  font-weight: bold;  
+  white-space: nowrap;  
+}  
+  
+@keyframes floatUp {  
+  to {  
+    transform: translateY(-110vh) rotate(25deg);  
+    opacity: 0;  
+  }  
+}  
+  
+@keyframes fade {  
+  from { opacity: 0; transform: translateY(10px); }  
+  to { opacity: 1; transform: translateY(0); }  
+}  
+  
+.container {  
+  position: relative;  
+  z-index: 2;  
+  width: min(100%, 440px);  
+  padding: 27px 22px;  
+  border-radius: 28px;  
+  background: linear-gradient(145deg, #fff8fc, #ffe5f0);  
+  box-shadow: 0 20px 65px #0008;  
+  border: 1px solid #ffffffa0;  
+}  
+  
+.topline {  
+  color: #c04b7c;  
+  font-size: 11px;  
+  font-weight: bold;  
+  letter-spacing: 1.5px;  
+  line-height: 1.8;  
+}  
+  
+.progress-wrap {  
+  height: 6px;  
+  background: #f4cfdf;  
+  border-radius: 10px;  
+  margin: 18px 0 24px;  
+  overflow: hidden;  
+}  
+  
+.progress {  
+  height: 100%;  
+  width: 12.5%;  
+  background: linear-gradient(90deg, #ff91b9, #ec347e);  
+  transition: width .4s;  
+}  
+  
+.step-box { display: none; }  
+  
+.step-box.active {  
+  display: block;  
+  animation: fade .4s ease;  
+}  
+  
+.gif-img, .gif-frame {  
+  display: block;  
+  width: 100%;  
+  max-width: 300px;  
+  height: 200px;  
+  object-fit: contain;  
+  margin: 0 auto 14px;  
+  border: 0;  
+  border-radius: 20px;  
+}  
+  
+.gif-img {  
+  width: 180px;  
+  height: 180px;  
+}  
+  
+#step1 .gif-img {  
+  display: block;  
+  width: 100%;  
+  max-width: 390px;  
+  height: auto;  
+  object-fit: contain;  
+  margin: 0 auto 14px;  
+}  
+  
+h2 {  
+  font-size: clamp(21px, 5vw, 25px);  
+  line-height: 1.45;  
+  margin: 0 0 10px;  
+  color: #48283d;  
+}  
+  
+.sub-text {  
+  font-size: 15px;  
+  line-height: 1.8;  
+  color: #806a7a;  
+  margin: 0 auto 18px;  
+  overflow-wrap: anywhere;  
+}  
+  
+.poetry-box {  
+  background: white;  
+  border-left: 4px solid #ff5d91;  
+  border-radius: 14px;  
+  padding: 15px 10px;  
+  line-height: 1.9;  
+  font-style: italic;  
+  margin: 15px 0 20px;  
+}  
+  
+.btn-group {  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  gap: 14px;  
+  min-height: 64px;  
+  margin-top: 18px;  
+  flex-wrap: wrap;  
+}  
+  
+.btn {  
+  border: 0;  
+  border-radius: 16px;  
+  padding: 16px 24px;  
+  min-height: 58px;  
+  min-width: 125px;  
+  font-size: 17px;  
+  font-weight: 800;  
+  color: white;  
+  cursor: pointer;  
+  box-shadow: 0 7px 18px #8d436344;  
+  transition: transform .15s, filter .15s;  
+  touch-action: manipulation;  
+  -webkit-tap-highlight-color: transparent;  
+}  
+  
+.btn:active { transform: scale(.96); }  
+.btn:hover { filter: brightness(1.05); }  
+  
+.btn-yes {  
+  background: linear-gradient(135deg, #31bd70, #18894e);  
+}  
+  
+.btn-no {  
+  background: linear-gradient(135deg, #ff7188, #e83c62);  
+}  
+  
+.btn-next {  
+  width: 100%;  
+  background: linear-gradient(110deg, #ff7ba8, #e9367c);  
+}  
+  
+.final-msg {  
+  font-size: 25px;  
+  font-weight: 800;  
+  color: #d63384;  
+  margin-top: 14px;  
+}  
+  
+.tiny-heart {  
+  color: #ef4f8c;  
+  margin-top: 20px;  
+  font-size: 13px;  
+}  
+  
+.music-btn {  
+  position: fixed;  
+  top: 14px;  
+  right: 14px;  
+  z-index: 100;  
+  background: #ffffff26;  
+  border: 1px solid #ffffff66;  
+  color: white;  
+  padding: 11px 15px;  
+  border-radius: 22px;  
+  font-size: 14px;  
+  font-weight: bold;  
+  cursor: pointer;  
+  backdrop-filter: blur(5px);  
+}  
+  
+#finalButtons { position: relative; }  
+  
+#noBtn7 {  
+  position: relative;  
+  z-index: 3;  
+}  
+  
+/* White 💨 particles animation */  
+@keyframes puffFly {  
+  0% {  
+    opacity: 1;  
+    transform: translate(0, 0) scale(1);  
+  }  
+  100% {  
+    opacity: 0;  
+    transform: translate(var(--fly-x), var(--fly-y)) scale(.6);  
+  }  
+}  
+  
+@media (max-width: 380px) {  
+  .container { padding: 22px 16px; }  
+  .gif-img { width: 150px; height: 150px; }  
+  .gif-frame { height: 180px; }  
+  .btn {  
+    padding: 15px 20px;  
+    min-width: 115px;  
+    font-size: 16px;  
+  }  
+}  
+  
+@media (prefers-reduced-motion: reduce) {  
+  .heart, .floating-word, .step-box.active { animation: none; }  
+  .progress, .btn { transition: none; }  
+}  
+</style>  </head>  <body>  
+<div class="heart-bg" id="heartBg"></div>  <audio id="bgMusic" loop preload="none">  
+  <source src="https://ia800904.us.archive.org/31/items/romantic-piano-music/Romantic%20Piano.mp3" type="audio/mpeg">  
+</audio>  <button class="music-btn" id="musicBtn" type="button">🎵 Play Music</button>
+
+<main class="container">  
+  <p class="topline">SOMETHING SPECIAL FROM MY HEART ❤️💌🐾</p>    <div class="progress-wrap">  
+    <div class="progress" id="progress"></div>  
+  </div>    <!-- STEP 1 -->    <section class="step-box active" id="step1">  
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"  
+         class="gif-img" alt="Cute romantic cat">  
+    <h2>DO you love me?? 🤭💗</h2>  
+    <div class="sub-text">~iam all yours!! ✨❣️</div>  
+    <div class="btn-group">  
+      <button class="btn btn-yes" onclick="nextStep(2)">Yes 🌜💖</button>  
+      <button class="btn btn-no" onclick="nextStep(2)">No 😶😵</button>  
+    </div>  
+  </section>    <!-- STEP 2 -->    <section class="step-box" id="step2">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/ZxyOSmk7XzhzYmmtM5"  
+      title="Cute anime chibi" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Please think again! 🙄💕</h2>  
+    <div class="sub-text">Hamesha sath rahunga 💃 yaha se yaha tkk 👵 sirf tumhara pakka... 👀💞</div>  
+    <div class="btn-group">  
+      <button class="btn btn-yes" onclick="nextStep(3)">Yes 🌹🌷</button>  
+      <button class="btn btn-no" onclick="nextStep(3)">No 😬🥺</button>  
+    </div>  
+  </section>    <!-- STEP 3 -->    <section class="step-box" id="step3">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/5SbA6ZRhiI5jriUwqu"  
+      title="Cat with flowers" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Ek aur baar phir soch lo! 😣</h2>  
+    <div class="sub-text">Kadar kar le, nahi milega mere jaisa kabhi koi aur 😢😭 ｡◕‿◕｡💗</div>  
+    <div class="btn-group">  
+      <button class="btn btn-yes" onclick="nextStep(4)">Yes 💅💞</button>  
+      <button class="btn btn-no" onclick="nextStep(4)">No 🤐😔</button>  
+    </div>  
+  </section>    <!-- STEP 4 -->    <section class="step-box" id="step4">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/PleihcHr0kbJVD0bNe"  
+      title="Cute kitty" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Simmi, maan jao na! Kitna bhav khaogi 😭💘</h2>  
+    <div class="sub-text">Bahut mehnat lagi isko banane mein yaar, sachhi 🌚🐼</div>  
+    <div class="btn-group">  
+      <button class="btn btn-next" onclick="nextStep(5)">Next 📅💖</button>  
+    </div>  
+  </section>    <!-- STEP 5 -->    <section class="step-box" id="step5">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/y0Ts0jklB4eXWDMi4l"  
+      title="Romantic GIF" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Kuch likha hai 🤭... 💌</h2>  
+    <div class="poetry-box">  
+      Aap hi ke bina kyun hoon bechain? 🙃<br>  
+      Aap hi kyun meri zaroorat hain?<br>  
+      Wehm itna haseen nahi hota, 🤗<br>  
+      Waakai aap khoobsurat hain!! ❤️  
+    </div>  
+    <div class="btn-group">  
+      <button class="btn btn-next" onclick="nextStep(6)">Next ♋🦀</button>  
+    </div>  
+  </section>    <!-- STEP 6 -->    <section class="step-box" id="step6">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/sXv0vaA4331Ti"  
+      title="Cute pleading Puss in Boots" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>I missed u in my every single moment 😭😭</h2>  
+    <div class="sub-text">Jiska naam hi Smriti ho, usko koi kaise bhula sakta hai 😔 Stupid, main samajh hi nahi paya 🥺💞</div>  
+    <div class="btn-group">  
+      <button class="btn btn-next" onclick="nextStep(7)">Next 😎🕊️</button>  
+    </div>  
+  </section>    <!-- STEP 7 -->    <section class="step-box" id="step7">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/xPnuBtFB5Un5Yo3JgG"  
+      title="Romantic GIF" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Do you really love me? 🥺💖</h2>  
+    <div class="sub-text">Sach sach batana padega ab toh!! 🌝😅🐾</div>  
+    <div class="btn-group" id="finalButtons">  
+      <button class="btn btn-yes" onclick="triggerCelebration()">Yes! 🤭🙃</button>  
+      <button class="btn btn-no" id="noBtn7" type="button">No 💔💘</button>  
+    </div>  
+  </section>    <!-- STEP 8 -->    <section class="step-box" id="step8">  
+    <iframe class="gif-frame"  
+      src="https://giphy.com/embed/6C5LFuLcnhTZeypW0E"  
+      title="Cat with rose" loading="lazy"  
+      allowfullscreen></iframe>  
+    <h2>Hehehehe, I knew it! You also love me a lot 😘💗</h2>  
+    <div class="sub-text">Aaj pata chala sab mujhe lucky kyun kehte hain... 💖</div>  
+    <div class="final-msg">Forever Yours ❤️✨</div>  
+    <div class="sub-text">In my ♥️ Meow meow… only you, Simmi 🐱💕</div>  
+  </section>    <div class="tiny-heart">Made with love, just for you 😘 Mikriti ♡ 🐾</div>  
+</main>  <script>  
+const heartBg = document.getElementById('heartBg');  
+const reducedMotion = window.matchMedia(  
+  '(prefers-reduced-motion: reduce)'  
+).matches;  
+  
+/* FLOATING HEARTS AND WORDS */  
+function createFloating(className, words) {  
+  if (reducedMotion || heartBg.childElementCount > 24) return;  
+  
+  const item = document.createElement('span');  
+  item.className = className;  
+  item.textContent = words[Math.floor(Math.random() * words.length)];  
+  item.style.left = Math.random() * 92 + 'vw';  
+  item.style.animationDuration =  
+    (className === 'heart' ? 5 + Math.random() * 4 : 7 + Math.random() * 4) + 's';  
+  
+  if (className === 'heart') {  
+    item.style.fontSize = (14 + Math.random() * 15) + 'px';  
+  }  
+  
+  heartBg.appendChild(item);  
+  item.addEventListener('animationend', () => item.remove(), { once: true });  
+}  
+  
+if (!reducedMotion) {  
+  setInterval(() => {  
+    createFloating('heart', ['💖', '💕', '🐾', '❣️', '💗', '😽']);  
+  }, 650);  
+  
+  setInterval(() => {  
+    createFloating('floating-word', [  
+      'Cutie 🐱', 'Mikriti ❣️', 'Forever 💖',  
+      'My World ✨', 'Simmi 💕'  
+    ]);  
+  }, 2200);  
+}  
+  
+/* MUSIC */  
+let ytPlayer;  
+let playerReady = false;  
+  
+function onYouTubeIframeAPIReady() {  
+  ytPlayer = new YT.Player('ytPlayer', {  
+    width: '200',  
+    height: '200',  
+    videoId: 'LIEiEwpEhWM',  
+    playerVars: {  
+      playsinline: 1  
+    },  
+    events: {  
+      onReady: function() {  
+        playerReady = true;  
+      }  
+    }  
+  });  
+}  
+  
+musicBtn.addEventListener('click', toggleMusic);  
+  
+function toggleMusic() {  
+  if (!playerReady) {  
+    musicBtn.textContent = '⏳ Loading Music...';  
+    return;  
+  }  
+  
+  if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {  
+    ytPlayer.pauseVideo();  
+    musicBtn.textContent = '🎵 Play Music';  
+  } else {  
+    ytPlayer.playVideo();  
+    musicBtn.textContent = '🔇 Pause Music';  
+  }  
+  }  
+  
+/* STEP NAVIGATION */  
+function nextStep(n) {  
+  const target = document.getElementById('step' + n);  
+  
+  if (!target) return;  
+  
+  document.querySelectorAll('.step-box').forEach(step => {  
+    step.classList.remove('active');  
+  });  
+  
+  target.classList.add('active');  
+  document.getElementById('progress').style.width = (n / 8 * 100) + '%';  
+  
+  if (n === 7) resetNoButton();  
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });  
+}  
+  
+/* CELEBRATION */  
+function triggerCelebration() {  
+  nextStep(8);  
+  
+  if (typeof confetti === 'function') {  
+    confetti({  
+      particleCount: 130,  
+      spread: 75,  
+      origin: { y: 0.6 },  
+      colors: ['#ff4b5c', '#ff7baf', '#ffffff', '#ff1493']  
+    });  
+  
+    setTimeout(() => {  
+      confetti({  
+        particleCount: 80,  
+        angle: 60,  
+        origin: { x: 0 },  
+        colors: ['#ff1493', '#a855f7', '#ffd700', '#00bfff']  
+      });  
+  
+      confetti({  
+        particleCount: 80,  
+        angle: 120,  
+        origin: { x: 1 },  
+        colors: ['#ff1493', '#a855f7', '#ffd700', '#00bfff']  
+      });  
+    }, 300);  
+  }  
+}  
+  
+/* RUNAWAY NO BUTTON + WHITE 💨 PARTICLES */  
+const noBtn7 = document.getElementById('noBtn7');  
+  
+function moveButton() {  
+  if (!noBtn7 || !document.getElementById('step7').classList.contains('active')) {  
+    return;  
+  }  
+  
+  const rect = noBtn7.getBoundingClientRect();  
+  
+  for (let i = 0; i < 24; i++) {  
+    const puff = document.createElement('span');  
+    puff.textContent = '💨';  
+    puff.style.cssText = `  
+      position: fixed;  
+      z-index: 999999;  
+      pointer-events: none;  
+      font-size: 22px;  
+      filter: grayscale(1) brightness(0) invert(1);  
+      left: ${rect.left + rect.width / 2}px;  
+      top: ${rect.top + rect.height / 2}px;  
+      animation: puffFly 1.5s ease-out forwards;  
+    `;  
+  
+    puff.style.setProperty('--fly-x', (Math.random() * 400 - 200) + 'px');  
+    puff.style.setProperty('--fly-y', (Math.random() * 400 - 200) + 'px');  
+  
+    document.body.appendChild(puff);  
+    setTimeout(() => puff.remove(), 1600);  
+  }  
+  
+  noBtn7.style.position = 'fixed';  
+  noBtn7.style.zIndex = '9999';  
+  noBtn7.style.transition = 'none';  
+  noBtn7.style.transform = 'none';  
+  
+  const margin = 15;  
+  const maxX = Math.max(margin, window.innerWidth - noBtn7.offsetWidth - margin);  
+  const maxY = Math.max(margin, window.innerHeight - noBtn7.offsetHeight - margin);  
+  
+  noBtn7.style.left = (margin + Math.random() * (maxX - margin)) + 'px';  
+  noBtn7.style.top = (margin + Math.random() * (maxY - margin)) + 'px';  
+}  
+  
+function resetNoButton() {  
+  noBtn7.style.position = 'relative';  
+  noBtn7.style.left = 'auto';  
+  noBtn7.style.top = 'auto';  
+  noBtn7.style.right = 'auto';  
+  noBtn7.style.bottom = 'auto';  
+  noBtn7.style.zIndex = '3';  
+  noBtn7.style.transform = 'none';  
+  noBtn7.style.transition = '';  
+}  
+  
+/* Desktop: move when pointer approaches */  
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {  
+  noBtn7.addEventListener('pointerenter', moveButton);  
+}  
+  
+/* Mobile: move on touch */  
+noBtn7.addEventListener('touchstart', function(event) {  
+  event.preventDefault();  
+  moveButton();  
+}, { passive: false });  
+  
+/* Fallback for clicking */  
+noBtn7.addEventListener('click', moveButton);  
+</script>  </body>  
+  </html>  
