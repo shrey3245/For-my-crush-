@@ -426,37 +426,41 @@ if (!reducedMotion) {
 }
 
 /* MUSIC */
-const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
+let ytPlayer;
+let playerReady = false;
+
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('ytPlayer', {
+    width: '200',
+    height: '200',
+    videoId: 'LIEiEwpEhWM',
+    playerVars: {
+      playsinline: 1
+    },
+    events: {
+      onReady: function() {
+        playerReady = true;
+      }
+    }
+  });
+}
 
 musicBtn.addEventListener('click', toggleMusic);
 
-async function toggleMusic() {
-  if (!music.paused) {
-    music.pause();
+function toggleMusic() {
+  if (!playerReady) {
+    musicBtn.textContent = '⏳ Loading Music...';
     return;
   }
 
-  musicBtn.textContent = '⏳ Loading Music...';
-
-  try {
-    await music.play();
-  } catch (error) {
-    musicBtn.textContent = '🎵 Tap to Play Again';
+  if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+    ytPlayer.pauseVideo();
+    musicBtn.textContent = '🎵 Play Music';
+  } else {
+    ytPlayer.playVideo();
+    musicBtn.textContent = '🔇 Pause Music';
   }
-}
-
-music.addEventListener('play', () => {
-  musicBtn.textContent = '🔇 Pause Music';
-});
-
-music.addEventListener('pause', () => {
-  musicBtn.textContent = '🎵 Play Music';
-});
-
-music.addEventListener('error', () => {
-  musicBtn.textContent = '🎵 Music unavailable';
-});
+  }
 
 /* STEP NAVIGATION */
 function nextStep(n) {
