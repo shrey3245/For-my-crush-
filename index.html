@@ -261,9 +261,8 @@ h2 {
 <body>
 <div class="heart-bg" id="heartBg"></div>
 
-<audio id="bgMusic" loop preload="none">
-  <source src="https://ia800904.us.archive.org/31/items/romantic-piano-music/Romantic%20Piano.mp3" type="audio/mpeg">
-</audio>
+<div id="ytPlayer"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <button class="music-btn" id="musicBtn" type="button">🎵 Play Music</button>
 
@@ -426,6 +425,8 @@ if (!reducedMotion) {
 }
 
 /* MUSIC */
+const musicBtn = document.getElementById('musicBtn');
+
 let ytPlayer;
 let playerReady = false;
 
@@ -440,14 +441,23 @@ function onYouTubeIframeAPIReady() {
     events: {
       onReady: function() {
         playerReady = true;
+        musicBtn.textContent = '🎵 Play Music';
+      },
+      onStateChange: function(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+          musicBtn.textContent = '🔇 Pause Music';
+        } else {
+          musicBtn.textContent = '🎵 Play Music';
+        }
+      },
+      onError: function() {
+        musicBtn.textContent = '⚠️ Song unavailable';
       }
     }
   });
 }
 
-musicBtn.addEventListener('click', toggleMusic);
-
-function toggleMusic() {
+musicBtn.addEventListener('click', function() {
   if (!playerReady) {
     musicBtn.textContent = '⏳ Loading Music...';
     return;
@@ -455,12 +465,10 @@ function toggleMusic() {
 
   if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
     ytPlayer.pauseVideo();
-    musicBtn.textContent = '🎵 Play Music';
   } else {
     ytPlayer.playVideo();
-    musicBtn.textContent = '🔇 Pause Music';
   }
-  }
+});
 
 /* STEP NAVIGATION */
 function nextStep(n) {
