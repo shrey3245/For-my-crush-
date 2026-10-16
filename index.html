@@ -9,272 +9,91 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 75px 14px 25px;
-  display: grid;
-  place-items: center;
-  overflow-x: hidden;
-  font-family: "Segoe UI", sans-serif;
-  text-align: center;
-  background: radial-gradient(circle at top, #572447, #190f25 65%, #100b18);
-  color: #402437;
+body{
+ margin:0;min-height:100vh;padding:75px 14px 25px;
+ display:grid;place-items:center;overflow-x:hidden;
+ font-family:"Segoe UI",sans-serif;text-align:center;
+ background:radial-gradient(circle at top,#572447,#190f25 65%,#100b18);
+ color:#402437;
 }
 
-.heart-bg {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
+.heart-bg{
+ position:fixed;inset:0;overflow:hidden;
+ pointer-events:none;z-index:0;
 }
 
-.heart, .floating-word {
-  position: absolute;
-  bottom: -45px;
-  pointer-events: none;
-  animation: floatUp linear forwards;
+.heart,.floating-word{
+ position:absolute;bottom:-45px;pointer-events:none;
+ animation:floatUp linear forwards;
 }
 
-.floating-word {
-  color: rgba(255, 182, 193, .65);
-  font-size: 13px;
-  font-weight: bold;
-  white-space: nowrap;
+.floating-word{
+ color:rgba(255,182,193,.65);
+ font-size:13px;font-weight:bold;white-space:nowrap;
 }
 
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh) rotate(25deg);
-    opacity: 0;
-  }
+@keyframes floatUp{
+ to{transform:translateY(-110vh) rotate(25deg);opacity:0}
 }
 
-@keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fade{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}
 }
 
-.container {
-  position: relative;
-  z-index: 2;
-  width: min(100%, 440px);
-  padding: 27px 22px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, #fff8fc, #ffe5f0);
-  box-shadow: 0 20px 65px #0008;
-  border: 1px solid #ffffffa0;
+.container{
+ position:relative;z-index:2;width:min(100%,440px);
+ padding:27px 22px;border-radius:28px;
+ background:linear-gradient(145deg,#fff8fc,#ffe5f0);
+ box-shadow:0 20px 65px #0008;
+ border:1px solid #ffffffa0;
 }
 
-.topline {
-  color: #c04b7c;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  line-height: 1.8;
+.topline{
+ color:#c04b7c;font-size:11px;font-weight:bold;
+ letter-spacing:1.5px;line-height:1.8;
 }
 
-.progress-wrap {
-  height: 6px;
-  background: #f4cfdf;
-  border-radius: 10px;
-  margin: 18px 0 24px;
-  overflow: hidden;
+.progress-wrap{
+ height:6px;background:#f4cfdf;border-radius:10px;
+ margin:18px 0 24px;overflow:hidden;
 }
 
-.progress {
-  height: 100%;
-  width: 12.5%;
-  background: linear-gradient(90deg, #ff91b9, #ec347e);
-  transition: width .4s;
+.progress{
+ height:100%;width:12.5%;
+ background:linear-gradient(90deg,#ff91b9,#ec347e);
+ transition:width .4s;
 }
 
-.step-box { display: none; }
+.step-box{display:none}
+.step-box.active{display:block;animation:fade .4s ease}
 
-.step-box.active {
-  display: block;
-  animation: fade .4s ease;
+.gif-img,.gif-frame{
+ display:block;width:100%;max-width:300px;height:200px;
+ object-fit:contain;margin:0 auto 14px;
+ border:0;border-radius:20px;
 }
 
-.gif-img, .gif-frame {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  height: 200px;
-  object-fit: contain;
-  margin: 0 auto 14px;
-  border: 0;
-  border-radius: 20px;
+.gif-img{width:180px;height:180px}
+
+#step1 .gif-img{
+ width:100%;max-width:390px;height:auto;
+ object-fit:contain;margin:0 auto 14px;
 }
 
-.gif-img {
-  width: 180px;
-  height: 180px;
+h2{
+ font-size:clamp(21px,5vw,25px);line-height:1.45;
+ margin:0 0 10px;color:#48283d;
 }
 
-#step1 .gif-img {
-  width: 100%;
-  max-width: 390px;
-  height: auto;
-  margin: 0 auto 14px;
+.sub-text{
+ font-size:15px;line-height:1.8;color:#806a7a;
+ margin:0 auto 18px;overflow-wrap:anywhere;
 }
 
-h2 {
-  font-size: clamp(21px, 5vw, 25px);
-  line-height: 1.45;
-  margin: 0 0 10px;
-  color: #48283d;
-}
-
-.sub-text {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #806a7a;
-  margin: 0 auto 18px;
-  overflow-wrap: anywhere;
-}
-
-.poetry-box {
-  background: white;
-  border-left: 4px solid #ff5d91;
-  border-radius: 14px;
-  padding: 15px 10px;
-  line-height: 1.9;
-  font-style: italic;
-  margin: 15px 0 20px;
-}
-
-.btn-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  min-height: 64px;
-  margin-top: 18px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  border: 0;
-  border-radius: 16px;
-  padding: 16px 24px;
-  min-height: 58px;
-  min-width: 125px;
-  font-size: 17px;
-  font-weight: 800;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 7px 18px #8d436344;
-  transition: transform .15s, filter .15s;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.btn:active { transform: scale(.96); }
-.btn:hover { filter: brightness(1.05); }
-
-.btn-yes {
-  background: linear-gradient(135deg, #31bd70, #18894e);
-}
-
-.btn-no {
-  background: linear-gradient(135deg, #ff7188, #e83c62);
-}
-
-.btn-next {
-  width: 100%;
-  background: linear-gradient(110deg, #ff7ba8, #e9367c);
-}
-
-.final-msg {
-  font-size: 25px;
-  font-weight: 800;
-  color: #d63384;
-  margin-top: 14px;
-}
-
-.tiny-heart {
-  color: #ef4f8c;
-  margin-top: 20px;
-  font-size: 13px;
-}
-
-/* MUSIC BUTTON */
-.music-btn {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  z-index: 10001;
-  background: #ffffff26;
-  border: 1px solid #ffffff66;
-  color: white;
-  padding: 11px 15px;
-  border-radius: 22px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  backdrop-filter: blur(5px);
-}
-
-/* YOUTUBE PLAYER: TOP-RIGHT */
-#ytPlayer {
-  position: fixed;
-  top: 76px;
-  right: 10px;
-  width: 200px;
-  height: 113px;
-  z-index: 10000;
-  border: 2px solid #ff7ba8;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #190f25;
-}
-
-#finalButtons { position: relative; }
-
-#noBtn7 {
-  position: relative;
-  z-index: 3;
-}
-
-/* WHITE WIND PARTICLES */
-@keyframes puffFly {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--fly-x), var(--fly-y)) scale(.6);
-  }
-}
-
-@media (max-width: 380px) {
-  .container { padding: 22px 16px; }
-
-  .gif-img {
-    width: 150px;
-    height: 150px;
-  }
-
-  .gif-frame { height: 180px; }
-
-  .btn {
-    padding: 15px 20px;
-    min-width: 115px;
-    font-size: 16px;
-  }
-
-  #ytPlayer {
-    width: 160px;
-    height: 90px;
-    top: 76px;
-    right: 8px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .heart, .floating-word, .step
+.poetry-box{
+ background:white;border-left:4px solid #ff5d91;
+ border-radius:14px;padding:15px 10px;
+ line-height
