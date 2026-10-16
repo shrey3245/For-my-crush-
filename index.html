@@ -228,41 +228,15 @@ h2 {
   z-index: 3;
 }
 
-/* Colourful feather particles */
-.feather {
-  position: fixed;
-  z-index: 999999;
-  width: 16px;
-  height: 38px;
-  pointer-events: none;
-  border-radius: 100% 0 100% 0;
-  background: var(--feather-color);
-  box-shadow: 0 0 8px #ffffff55;
-  transform-origin: center;
-  animation: featherFly 1.5s ease-out forwards;
-}
-
-.feather::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 31px;
-  left: 7px;
-  top: 3px;
-  background: var(--feather-stem);
-  border-radius: 50%;
-  transform: rotate(-12deg);
-}
-
-@keyframes featherFly {
+/* White 💨 particles animation */
+@keyframes puffFly {
   0% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate(0, 0) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translate(var(--fly-x), var(--fly-y))
-               rotate(650deg) scale(.6);
+    transform: translate(var(--fly-x), var(--fly-y)) scale(.6);
   }
 }
 
@@ -532,7 +506,7 @@ function triggerCelebration() {
   }
 }
 
-/* RUNAWAY NO BUTTON + COLOURFUL FEATHERS */
+/* RUNAWAY NO BUTTON + WHITE 💨 PARTICLES */
 const noBtn7 = document.getElementById('noBtn7');
 
 function moveButton() {
@@ -542,35 +516,25 @@ function moveButton() {
 
   const rect = noBtn7.getBoundingClientRect();
 
-  const featherColors = [
-    '#ff1493', // Pink
-    '#a855f7', // Purple
-    '#00bfff', // Blue
-    '#ffd700', // Gold
-    '#00c853', // Green
-    '#ff4500', // Orange
-    '#fb7185', // Rose
-    '#ffffff'  // White
-  ];
-
   for (let i = 0; i < 24; i++) {
-    const feather = document.createElement('span');
-    feather.className = 'feather';
+    const puff = document.createElement('span');
+    puff.textContent = '💨';
+    puff.style.cssText = `
+      position: fixed;
+      z-index: 999999;
+      pointer-events: none;
+      font-size: 22px;
+      filter: grayscale(1) brightness(0) invert(1);
+      left: ${rect.left + rect.width / 2}px;
+      top: ${rect.top + rect.height / 2}px;
+      animation: puffFly 1.5s ease-out forwards;
+    `;
 
-    const color = featherColors[
-      Math.floor(Math.random() * featherColors.length)
-    ];
+    puff.style.setProperty('--fly-x', (Math.random() * 400 - 200) + 'px');
+    puff.style.setProperty('--fly-y', (Math.random() * 400 - 200) + 'px');
 
-    feather.style.setProperty('--feather-color', color);
-    feather.style.setProperty('--feather-stem', color);
-    feather.style.left = (rect.left + rect.width / 2) + 'px';
-    feather.style.top = (rect.top + rect.height / 2) + 'px';
-
-    feather.style.setProperty('--fly-x', (Math.random() * 400 - 200) + 'px');
-    feather.style.setProperty('--fly-y', (Math.random() * 400 - 200) + 'px');
-
-    document.body.appendChild(feather);
-    setTimeout(() => feather.remove(), 1600);
+    document.body.appendChild(puff);
+    setTimeout(() => puff.remove(), 1600);
   }
 
   noBtn7.style.position = 'fixed';
